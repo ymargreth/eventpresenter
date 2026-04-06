@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>ADHDJ</title>
+   <style>
+      body {
+         margin: 0;
+         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+         background: radial-gradient(circle at top, #1a1a1a, #000);
+         color: #fff;
+         text-align: center;
+      }
+
+      .container {
+         max-width: 420px;
+         margin: 0 auto;
+         padding: 40px 20px;
+      }
+
+      .logo {
+         font-size: 32px;
+         font-weight: 700;
+         letter-spacing: 2px;
+         margin-bottom: 10px;
+      }
+
+      .tagline {
+         font-size: 14px;
+         color: #aaa;
+         margin-bottom: 30px;
+      }
+
+      .section-title {
+         margin: 30px 0 10px;
+         font-size: 14px;
+         color: #888;
+         letter-spacing: 1px;
+      }
+
+      .link {
+         display: block;
+         padding: 16px;
+         margin: 12px 0;
+         border-radius: 14px;
+         text-decoration: none;
+         color: #fff;
+         background: linear-gradient(135deg, #111, #1f1f1f);
+         border: 1px solid #2a2a2a;
+         transition: all 0.2s ease;
+      }
+
+      .link:hover {
+         transform: scale(1.03);
+         background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+         border-color: #444;
+         box-shadow: 0 0 15px #7a00ff;
+      }
+
+      .event {
+         text-align: left;
+         padding: 14px;
+         margin: 10px 0;
+         border-radius: 12px;
+         background: #111;
+         border: 1px solid #2a2a2a;
+      }
+
+      .event-title {
+         font-weight: bold;
+      }
+
+      .event-meta {
+         font-size: 12px;
+         color: #aaa;
+      }
+
+      .accent {
+         height: 4px;
+         width: 80px;
+         margin: 20px auto;
+         border-radius: 10px;
+         background: linear-gradient(90deg, #00ffcc, #7a00ff);
+         box-shadow: 0 0 10px #00ffcc;
+      }
+
+      .footer {
+         margin-top: 40px;
+         font-size: 12px;
+         color: #666;
+      }
+   </style>
+</head>
+<body>
+   <div class="container">
+      <div class="logo">ADHDJ</div>
+      <div class="accent"></div>
+      <div class="tagline">Drum & Bass · Psytrance · Underground Vibes</div>
+
+      <div class="section-title">UPCOMING EVENTS</div>
+      <div id="events"></div>
+
+      <div class="section-title">LINKS</div>
+      <a class="link" href="#">🎧 SoundCloud</a>
+      <a class="link" href="#">📸 Instagram</a>
+      <a class="link" href="#">💬 Bookings</a>
+
+      <div class="footer">© ADHDJ</div>
+   </div>
+
+   <script>
+      // 👉 Replace this URL with your actual JSON endpoint (GitHub raw, API, etc.)
+      const EVENTS_URL = "events.json";
+
+      async function loadEvents() {
+         try {
+            const res = await fetch(EVENTS_URL);
+            const events = await res.json();
+
+            const container = document.getElementById("events");
+            container.innerHTML = "";
+
+            const now = new Date();
+
+            const upcoming = events
+               .map(e => ({ ...e, dateObj: new Date(e.date) }))
+               .filter(e => e.dateObj >= now)
+               .sort((a, b) => a.dateObj - b.dateObj);
+
+            if (upcoming.length === 0) {
+               container.innerHTML = "<div class='event'>No upcoming events</div>";
+               return;
+            }
+
+            upcoming.forEach(e => {
+               const el = document.createElement("div");
+               el.className = "event";
+
+               el.innerHTML = `
+                  <div class="event-title">${e.name}</div>
+                  <div class="event-meta">${e.date} · ${e.location}</div>
+               `;
+
+               if (e.link) {
+                  el.style.cursor = "pointer";
+                  el.onclick = () => window.open(e.link, "_blank");
+               }
+
+               container.appendChild(el);
+            });
+         } catch (err) {
+            document.getElementById("events").innerHTML = "<div class='event'>Failed to load events</div>";
+            console.error(err);
+         }
+      }
+
+      loadEvents();
+   </script>
+</body>
+</html>
