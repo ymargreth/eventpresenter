@@ -1,13 +1,21 @@
 [
-   {
-      "name": "DnB Night @ Club XYZ",
-      "date": "2026-05-10",
-      "location": "Zurich",
-      "link": "https://example.com/tickets"
-   },
-   {
-      "name": "Psytrance Forest Session",
-      "date": "2026-06-01",
-      "location": "Graubünden"
-   }
+	{
+		"name": "DnB Night",
+		"date": "2026-05-10",
+		"location": "Club XYZ",
+		"city": "Zürich",
+		"links": {
+			"tickets": "https://example.com/tickets",
+			"map": "https://maps.example.com/clubxyz"
+		}
+	},
+	{
+		"name": "Psytrance Forest Session",
+		"date": "2026-06-01",
+		"city": "Graubünden",
+		"links": {
+			"tickets": "https://example.com/tickets",
+			"map": "https://maps.example.com/graubunden"
+		}
+	}
 ]
