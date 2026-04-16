@@ -1,6 +1,6 @@
 // 👉 Replace this URL with your actual JSON endpoint (GitHub raw, API, etc.)
-const EVENTS_URL = "events.json";
-const SOCIALS_URL = "socials.json";
+const EVENTS_URL = "/events.json";
+const SOCIALS_URL = "/socials.json";
 
 export async function loadEvents() {
 	try {
@@ -24,6 +24,7 @@ export async function loadEvents() {
 
 		upcoming.forEach((e) => {
 			const location = e.location ? ` @ ${e.location}` : "";
+			const page = `/events/${e.dateObj.toISOString().split("T")[0]}.html`;
 			const el = document.createElement("div");
 			el.className = "event";
 
@@ -32,10 +33,8 @@ export async function loadEvents() {
                   <div class="event-meta">${e.date} · ${e.city}</div>
                `;
 
-			if (e.links.tickets) {
-				el.style.cursor = "pointer";
-				el.onclick = () => window.open(e.links.tickets, "_blank");
-			}
+			el.style.cursor = "pointer";
+			el.onclick = () => window.open(page, "_blank");
 
 			container.appendChild(el);
 		});
@@ -57,7 +56,7 @@ export async function loadSocials() {
 		socials.forEach((s) => {
 			const icon =
 				s.icon ?
-					`<img src="icons/${s.icon}" alt="${s.title}" style="width:20px; vertical-align:middle; margin-right: 12px; margin-bottom: 2px;">`
+					`<img src="/icons/${s.icon}" alt="${s.title}" style="width:20px; vertical-align:middle; margin-right: 12px; margin-bottom: 2px;">`
 				:	"";
 			const el = document.createElement("a");
 			el.className = "link";
@@ -76,4 +75,3 @@ export async function loadSocials() {
 export async function loadEventLinks() {
 	// Implementation for loading event links
 }
-
