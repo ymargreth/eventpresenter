@@ -1,7 +1,7 @@
 import json
 import os
 import re
-from datetime import datetime
+from datetime import date, datetime
 
 with open("events.json", "r") as f:
    events = json.load(f)
@@ -17,8 +17,7 @@ def slugify(text):
    return text.strip("-")
 
 def make_filename(date_str):
-   dt = datetime.strptime(date_str, "%Y-%m-%d")
-   base = f"{dt.strftime('%Y-%m-%d')}"
+   base = date_str
    filename = base + ".html"
 
    # collision handling
@@ -32,33 +31,59 @@ def make_filename(date_str):
 
 for event in events:
    date_str = event.get("date", "1970-01-01")
-   name = event.get("name", "event")
+   event_date = date.fromisoformat(date_str)
+   date_loc = event_date.strftime("%a, %d %b %Y")
+   name = event.get("name", "EVENT")
+   links = event.get("links", {})
 
-   file_name = make_filename(date_str, name)
+   file_name = make_filename(date_str)
    file_path = os.path.join(out_dir, file_name)
 
    html = f"""<!DOCTYPE html>
 <html>
 <head>
+   <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>{name}</title>
-   <link rel="stylesheet" href="../style.css">
+   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+   <div class="container">
+			<div class="logo">{name}</div>
+			<div class="accent"></div>
+			<div class="tagline">{event.get("location", "")} · {date_loc}</div>
+
+			<div class="section-title">GET YOUR TICKET NOW!</div>
+			<a class="link" href="{links.get("ticket", "#")}">Ticket Shop</a>
+
+         <div class="section-title">MORE INFOS</div>
+"""
+   for key, link in links.items():
+      if key != "ticket":
+         if key == "map":
+            html += f'<a class="link" href="{link}">Open Location in Maps</a>\n'
+         else:
+            html += f'<a class="link" href="{link}">{key.capitalize()}</a>\n'
+
+   html += """
+			<div class="section-title">FOLLOW US!</div>
+			<div id="socials"></div>
+
+			<div class="footer">© Summit Groove Collective</div>
+	</div>
 
    <h1>{name}</h1>
-   <p>{event.get("location", "")} · {date_str}</p>
+   <p>{event.get("location", "")} · {date_loc}</p>
 
    <p>{event.get("description", "No description yet.")}</p>
 
-"""
-
-   if "link" in event:
-      html += f'<p><a href="{event["link"]}">Ticket Link</a></p>\n'
-
-   html += """
    <a href="../index.html">← Back</a>
 
+   <script type="module">
+      import { loadSocials } from "/utils.js";
+
+      loadSocials();
+   </script>
 </body>
 </html>
 """
