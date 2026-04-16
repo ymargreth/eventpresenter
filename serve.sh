@@ -12,7 +12,7 @@ echo "Starting server..."
 python3 -m http.server "$PORT" &
 SERVER_PID=$!
 
-sleep 1
+sleep 2
 
 URL="http://localhost:$PORT"
 
