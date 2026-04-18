@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<link rel="stylesheet" href="/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="title"></div>
+			<div class="accent"></div>
+			<div class="subtitle"></div>
+			<div class="tagline"></div>
+			<a id="ticket-link" class="link" href="">Get Your Ticket Now!</a>
+			<div class="accent"></div>
+			<div class="section-title">MORE INFOS</div>
+			<div id="links"></div>
+
+			<div class="section-title">STAY IN TOUCH!</div>
+			<div id="socials"></div>
+
+			<div class="footer">©2026 Summit Groove Collective</div>
+		</div>
+
+		<script type="module">
+			import { loadSocials, loadEventLinks } from "/utils.js";
+
+			const params = new URLSearchParams(window.location.search);
+			const query = params.get("q");
+
+			if (!query) {
+				document.body.innerHTML = "Missing event date";
+				throw new Error("No date param");
+			}
+
+			loadEvent(query);
+			loadSocials();
+		</script>
+	</body>
+</html>

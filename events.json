@@ -20,5 +20,36 @@
 			"ticket": "https://example.com/tickets",
 			"map": "https://maps.example.com/graubunden"
 		}
+	},
+	{
+		"name": "Psytrance Forest 2",
+		"date": "2026-09-25",
+		"city": "Graubünden",
+		"links": {
+			"ticket": "https://example.com/tickets",
+			"map": "https://maps.example.com/graubunden"
+		}
+	},
+	{
+		"name": "Psytrance Forest 2",
+		"date": "2026-09-25",
+		"city": "Graubünden",
+		"links": {
+			"ticket": "https://example.com/tickets",
+			"map": "https://maps.example.com/graubunden"
+		}
+	},
+	{
+		"name": "Alpine Whispers II",
+		"date": "2026-08-29",
+		"city": "Graubünden",
+		"location": "Alte Schwendi Klosters",
+		"links": {
+			"ticket": "https://example.com/tickets",
+			"map": "https://maps.example.com/graubunden",
+			"goabase": "https://goabase.net/party/dnb-night-2026",
+			"facebook": "https://facebook.com/events/dnb-night-2026",
+			"flyer": "https://example.com/flyer.jpg"
+		}
 	}
 ]

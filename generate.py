@@ -49,39 +49,27 @@ for event in events:
 </head>
 <body>
    <div class="container">
-			<div class="logo">{name}</div>
+			<div class="title">{name}</div>
 			<div class="accent"></div>
-			<div class="tagline">{event.get("location", "")} · {date_loc}</div>
+			<div class="subtitle">{event.get("location", "")} · {date_loc}</div>
 
-			<div class="section-title">GET YOUR TICKET NOW!</div>
-			<a class="link" href="{links.get("ticket", "#")}">Ticket Shop</a>
+			<a class="link" href="{links.get("ticket", "#")}">Get Your Ticket Now!</a>
 
          <div class="section-title">MORE INFOS</div>
-"""
-   for key, link in links.items():
-      if key != "ticket":
-         if key == "map":
-            html += f'<a class="link" href="{link}">Open Location in Maps</a>\n'
-         else:
-            html += f'<a class="link" href="{link}">{key.capitalize()}</a>\n'
+         <div id="links"></div>
 
-   html += """
-			<div class="section-title">FOLLOW US!</div>
+			<div class="section-title">STAY IN TOUCH!</div>
 			<div id="socials"></div>
 
-			<div class="footer">© Summit Groove Collective</div>
+			<div class="footer">©2026 Summit Groove Collective</div>
 	</div>
 
-   <h1>{name}</h1>
-   <p>{event.get("location", "")} · {date_loc}</p>
-
-   <p>{event.get("description", "No description yet.")}</p>
-
-   <a href="../index.html">← Back</a>
-
    <script type="module">
-      import { loadSocials } from "/utils.js";
+      """
+   html += 'import { loadSocials, loadEventLinks } from "/utils.js";\n'
+   html += f"""
 
+      loadEventLinks("{date_str}");
       loadSocials();
    </script>
 </body>

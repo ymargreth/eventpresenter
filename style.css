@@ -4,39 +4,47 @@ body {
 	background: radial-gradient(circle at top, #1a1a1a, #000);
 	color: #fff;
 	text-align: center;
+	font-weight: 300;
 }
 
 .container {
-	max-width: 420px;
+	max-width: 30rem;
 	margin: 0 auto;
-	padding: 40px 20px;
+	padding: 2.5rem 1.25rem;
 }
 
-.logo {
-	font-size: 32px;
+.title {
+	font-size: 3rem;
 	font-weight: 700;
-	letter-spacing: 2px;
-	margin-bottom: 10px;
+	letter-spacing: 0.125rem;
+	margin-bottom: 0.625rem;
+}
+
+.subtitle {
+	font-size: 1.5rem;
+	font-weight: 500;
+	color: #aaa;
+	margin-bottom: 1.875rem;
 }
 
 .tagline {
-	font-size: 14px;
+	font-size: 1rem;
 	color: #aaa;
-	margin-bottom: 30px;
+	margin-bottom: 1.875rem;
 }
 
 .section-title {
-	margin: 30px 0 10px;
-	font-size: 14px;
+	margin: 1.875rem 0 0.625rem;
+	font-size: 0.875rem;
 	color: #888;
-	letter-spacing: 1px;
+	letter-spacing: 0.0625rem;
 }
 
 .link {
 	display: block;
-	padding: 16px;
-	margin: 12px 0;
-	border-radius: 14px;
+	padding: 1rem;
+	margin: 0.75rem 0;
+	border-radius: 0.875rem;
 	text-decoration: none;
 	color: #fff;
 	background: linear-gradient(135deg, #111, #1f1f1f);
@@ -47,20 +55,29 @@ body {
 .link:hover {
 	transform: scale(1.03);
 	background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+}
+
+.glow:hover {
 	border-color: #444;
-	box-shadow: 0 0 15px #7a00ff;
+	box-shadow: 0 0 0.9375rem #00ffff;
+}
+
+#ticket-link:hover {
+	border-color: #444;
+	box-shadow: 0 0 0.9375rem #bb00ff;
 }
 
 .event {
 	text-align: left;
-	padding: 14px;
-	margin: 10px 0;
-	border-radius: 12px;
+	padding: 0.875rem;
+	margin: 1rem 0;
+	border-radius: 0.75rem;
 	background: #111;
 	border: 1px solid #2a2a2a;
 }
 
 .event:hover {
+	transform: scale(1.03);
 	background: #1a1a1a;
 }
 
@@ -69,21 +86,37 @@ body {
 }
 
 .event-meta {
-	font-size: 12px;
+	font-size: 0.75rem;
 	color: #aaa;
 }
 
+.message {
+	font-size: 1.5rem;
+	font-weight: 400;
+	display: block;
+	padding: 1rem;
+	margin: 0.75rem 0;
+	border-radius: 0.875rem;
+	background: #111;
+	border: 1px solid #aa0000;
+	transition: all 0.2s ease;
+}
+
 .accent {
-	height: 4px;
-	width: 80px;
-	margin: 20px auto;
-	border-radius: 10px;
+	height: 0.25rem;
+	width: 5rem;
+	margin: 1.875rem auto;
+	border-radius: 0.625rem;
 	background: linear-gradient(90deg, #00ffcc, #7a00ff);
-	box-shadow: 0 0 10px #00ffcc;
+	box-shadow: 0 0 0.625rem #00ffcc;
 }
 
 .footer {
-	margin-top: 40px;
-	font-size: 12px;
+	margin-top: 4rem;
+	font-size: 0.75rem;
 	color: #666;
+}
+
+.hidden {
+	display: none;
 }

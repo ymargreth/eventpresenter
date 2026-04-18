@@ -8,5 +8,10 @@
 		"title": "WhatsApp",
 		"link": "https://wa.me/1234567890",
 		"icon": "whatsapp.png"
+	},
+	{
+		"title": "E-Mail",
+		"link": "mailto:info@summitgroove.ch",
+		"icon": "email.png"
 	}
 ]

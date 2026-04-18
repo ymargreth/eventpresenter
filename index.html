@@ -8,23 +8,51 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="logo">Summit Groove Collective</div>
+			<div class="title">Summit Groove Collective</div>
 			<div class="accent"></div>
-			<div class="tagline">Der Bass muss ficken</div>
-
+			<div class="subtitle">Der Bass muss ficken</div>
+			<div class="tagline hidden">test</div>
+			<a id="ticket-link" class="link hidden" href="">Get Your Ticket Now!</a>
+			<div class="accent hidden"></div>
 			<div class="section-title">UPCOMING EVENTS</div>
+			<div id="links" class="hidden"></div>
 			<div id="events"></div>
 
-			<div class="section-title">FOLLOW US!</div>
+			<div class="section-title">STAY IN TOUCH!</div>
 			<div id="socials"></div>
 
-			<div class="footer">© Summit Groove Collective</div>
+			<div class="footer">©2026 Summit Groove Collective</div>
 		</div>
 
 		<script type="module">
-			import { loadEvents, loadSocials } from "/utils.js";
+			import { loadOverview, loadSocials, loadEvent } from "/utils.js";
 
-			loadEvents();
+			const params = new URLSearchParams(window.location.search);
+			const query = params.get("q");
+
+			if (!query) {
+				document.body.innerHTML = "Nothing to display";
+				throw new Error("No query param");
+			} else if (query === "displayAll") {
+				// Hide elements that are only for the event view
+				document.querySelector(".tagline").classList.add("hidden");
+
+				loadOverview();
+			} else if (query.match(/\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/)) {
+				// Show hidden elements
+				document
+					.querySelectorAll(".hidden")
+					.forEach((el) => el.classList.remove("hidden"));
+
+				// Hide elements that are only for the overview
+				document.getElementById("events").classList.add("hidden");
+
+				loadEvent(query);
+			} else {
+				document.body.innerHTML = "Invalid query param";
+				throw new Error("Invalid query param");
+			}
+
 			loadSocials();
 		</script>
 	</body>

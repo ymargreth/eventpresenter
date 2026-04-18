@@ -2,7 +2,7 @@
 const EVENTS_URL = "/events.json";
 const SOCIALS_URL = "/socials.json";
 
-export async function loadEvents() {
+export async function loadOverview() {
 	try {
 		const res = await fetch(EVENTS_URL);
 		const events = await res.json();
@@ -22,9 +22,11 @@ export async function loadEvents() {
 			return;
 		}
 
+		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
+
 		upcoming.forEach((e) => {
 			const location = e.location ? ` @ ${e.location}` : "";
-			const page = `/events/${e.dateObj.toISOString().split("T")[0]}.html`;
+			const page = `/?q=${e.date}`;
 			const el = document.createElement("div");
 			el.className = "event";
 
@@ -40,8 +42,8 @@ export async function loadEvents() {
 		});
 	} catch (err) {
 		document.getElementById("events").innerHTML =
-			"<div class='event'>Failed to load events</div>";
-		console.error(err);
+			"<div class='message'>Failed to load events</div>";
+		console.error("Failed to load events:", err);
 	}
 }
 
@@ -49,7 +51,7 @@ export async function loadSocials() {
 	try {
 		const res = await fetch(SOCIALS_URL);
 		const socials = await res.json();
-
+		console.log("Loaded socials:", socials);
 		const container = document.getElementById("socials");
 		container.innerHTML = "";
 
@@ -59,7 +61,7 @@ export async function loadSocials() {
 					`<img src="/icons/${s.icon}" alt="${s.title}" style="width:20px; vertical-align:middle; margin-right: 12px; margin-bottom: 2px;">`
 				:	"";
 			const el = document.createElement("a");
-			el.className = "link";
+			el.className = "link glow";
 			el.href = s.link;
 			el.target = "_blank";
 			el.innerHTML = `${icon}${s.title}`;
@@ -67,11 +69,58 @@ export async function loadSocials() {
 		});
 	} catch (err) {
 		document.getElementById("socials").innerHTML =
-			"<div class='event'>Failed to load social links</div>";
-		console.error(err);
+			"<div class='message'>Failed to load social links</div>";
+		console.error("Failed to load social links:", err);
 	}
 }
 
-export async function loadEventLinks() {
-	// Implementation for loading event links
+export async function loadEvent(dateStr) {
+	try {
+		const res = await fetch(EVENTS_URL);
+		const events = await res.json();
+
+		const event = events.find((e) => e.date === dateStr);
+		const eventDate = new Date(dateStr);
+
+		if (!event) {
+			console.error(`No Event found for date: ${eventDate.toDateString()}`);
+			return;
+		}
+
+		// populate page
+		document.title = `${event.name} - Summit Groove Collective`;
+		document.querySelector(".title").textContent = event.name;
+		document.querySelector(".subtitle").textContent =
+			eventDate.toLocaleDateString(undefined, {
+				weekday: "long",
+				year: "numeric",
+				month: "long",
+				day: "numeric"
+			});
+		document.querySelector(".tagline").textContent =
+			`${event.location ? `${event.location} · ` : ""}${event.city}`;
+		document.getElementById("ticket-link").href = event.links.ticket || "#";
+		document.querySelector(".section-title").textContent = "MORE INFOS";
+
+		const container = document.getElementById("links");
+		container.innerHTML = "";
+
+		for (const [key, link] of Object.entries(event.links)) {
+			if (key !== "ticket") {
+				const el = document.createElement("a");
+				el.className = "link";
+				el.href = link;
+				el.target = "_blank";
+				el.innerHTML =
+					key === "map" ?
+						"Open Location in Maps"
+					:	key.charAt(0).toUpperCase() + key.slice(1);
+				container.appendChild(el);
+			}
+		}
+	} catch (err) {
+		document.getElementById("links").innerHTML =
+			`<div class='message'>No Event found for date: ${dateStr}</div>`;
+		console.error("Failed to load event links:", err);
+	}
 }
