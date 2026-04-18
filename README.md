@@ -19,7 +19,7 @@ _Self hosted linktree alternative_
 
 1. run the following command in the `EventList` directory:
 
-   ```
+   ```bash
    python3 -m http.server 48080
    ```
 
