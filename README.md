@@ -1,6 +1,6 @@
 # EventList
 
-_Self hosted linktree alternative_
+> Self hosted linktree alternative
 
 ## Prerequisites
 
@@ -25,6 +25,6 @@ _Self hosted linktree alternative_
 
 2. use the following url:
 
-   ```
+   ```txt
    http://localhost:48080/?q=displayAll
    ```

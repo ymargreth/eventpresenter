@@ -24,13 +24,12 @@ body {
 	font-size: 1.5rem;
 	font-weight: 500;
 	color: #aaa;
-	margin-bottom: 1.875rem;
+	margin-bottom: 1rem;
 }
 
 .tagline {
 	font-size: 1rem;
 	color: #aaa;
-	margin-bottom: 1.875rem;
 }
 
 .section-title {
@@ -60,6 +59,10 @@ body {
 .glow:hover {
 	border-color: #444;
 	box-shadow: 0 0 0.9375rem #00ffff;
+}
+
+#ticket-link {
+	margin: 1.25rem auto;
 }
 
 #ticket-link:hover {
@@ -105,7 +108,7 @@ body {
 .accent {
 	height: 0.25rem;
 	width: 5rem;
-	margin: 1.875rem auto;
+	margin: 1.25rem auto;
 	border-radius: 0.625rem;
 	background: linear-gradient(90deg, #00ffcc, #7a00ff);
 	box-shadow: 0 0 0.625rem #00ffcc;
