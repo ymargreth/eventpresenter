@@ -20,7 +20,7 @@ PORT=${1:-58080}
 echo "Starting server ... "
 
 # start server in background so script continues
-python3 -m http.server "$PORT" &
+python3 -m http.server "$PORT" -d ./html&
 SERVER_PID=$!
 
 sleep 2
