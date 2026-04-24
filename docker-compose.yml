@@ -1,11 +1,10 @@
-version: "3.8"
-
 services:
   web:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: svc.web/Dockerfile
     ports:
-      - "8080:80"
+      - "42080:80"
     volumes:
-      - ./html:/usr/share/nginx/html:ro
-      - ./nginx:/etc/nginx/conf.d:ro
-    restart: unless-stopped
+      - ./data:/usr/share/nginx/html/feed:ro
+    restart: always
