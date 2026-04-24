@@ -1,13 +1,3 @@
-# =============================
-# Makefile for Event Presenter
-# =============================
-
-# load environment variables from .env if it exists
-ifneq (,$(wildcard .env))
-	include .env
-	export
-endif
-
 # detect which compose command is available
 
 COMPOSE_BIN := $(shell \
@@ -29,7 +19,7 @@ endif
 
 DOCKER        ?= docker
 COMPOSE       ?= $(COMPOSE_BIN)
-PROJECT       ?= $(PROJECT) # set in .env or defaults to directory name
+PROJECT       ?= eventpresenter
 FILE          ?= docker-compose.yml
 SERVICE       ?=           # optional: SERVICE=web
 
