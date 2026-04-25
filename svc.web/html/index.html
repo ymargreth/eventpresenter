@@ -18,7 +18,9 @@
 			<div class="accent"></div>
 			<div class="subtitle"></div>
 			<div class="tagline"></div>
-			<a id="ticket-link" class="link hidden" href="">Get Your Ticket Now!</a>
+			<a id="ticket-link" class="link hidden" href="" target="_blank"
+				>Get Your Ticket Now!</a
+			>
 			<div class="accent hidden"></div>
 			<div class="section-title">UPCOMING EVENTS</div>
 			<div id="links" class="hidden"></div>
@@ -41,7 +43,7 @@
 			const query = params.get("q");
 
 			if (!query) {
-				document.querySelector(".container") = "Nothing to display";
+				document.querySelector(".container").innerHTML = "Nothing to display";
 				throw new Error("No query param");
 			} else if (query === "displayAll") {
 				// Hide elements that are only for the event view

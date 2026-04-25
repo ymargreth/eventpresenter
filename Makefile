@@ -50,7 +50,7 @@ rebuild: down
 	@$(COMPOSE_CMD) up -d --build $(SERVICE)
 
 .PHONY: logs
-logs:s
+logs:
 	@$(COMPOSE_CMD) logs -f $(SERVICE)
 
 .PHONY: ps status

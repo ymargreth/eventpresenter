@@ -10,13 +10,13 @@ body {
 .container {
 	max-width: 30rem;
 	margin: 0 auto;
-	padding: 0 1.25rem 1.25rem;
+	padding: 1rem 1.25rem 1.25rem;
 }
 
 .logo img {
 	max-width: 10rem;
 	height: auto;
-	margin: 0 auto -1.5rem;
+	margin: -1rem auto -1.5rem;
 }
 
 .title {
@@ -95,6 +95,7 @@ body {
 }
 
 .event-meta {
+	margin-top: 0.25rem;
 	font-size: 0.75rem;
 	color: #aaa;
 }

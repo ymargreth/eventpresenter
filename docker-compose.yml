@@ -1,10 +1,16 @@
 services:
   web:
-    build:
-      context: .
-      dockerfile: svc.web/Dockerfile
+    build: svc.web
     ports:
       - "42080:80"
     volumes:
-      - ./data:/usr/share/nginx/html/feed:ro
+      - data_feed:/usr/share/nginx/data:ro
     restart: always
+  fetch:
+    build: svc.fetch
+    volumes:
+      - data_feed:/data
+    restart: always
+
+volumes:
+  data_feed:
