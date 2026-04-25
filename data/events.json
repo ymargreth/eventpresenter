@@ -1,54 +1,27 @@
 [
 	{
-		"name": "DnB Night",
-		"date": "2026-05-10",
-		"location": "Club XYZ",
-		"city": "Zürich",
+		"name": "Summit Day Groove III",
+		"date": "2026-05-23",
+		"city": "Graubünden",
+		"location": "Schützenhaus Grüsch",
 		"links": {
-			"ticket": "https://example.com/tickets",
-			"map": "https://maps.example.com/clubxyz",
-			"goabase": "https://goabase.net/party/dnb-night-2026",
-			"facebook": "https://facebook.com/events/dnb-night-2026",
+			"ticket": "https://www.ticketino.com/en/OrganizerShop/6716480/event/summit-day-groove-iii/214600",
+			"map": "https://maps.example.com/graubunden",
+			"goabase": "https://goabase.net/party/summit-day-groove-iii",
+			"facebook": "https://facebook.com/events/summit-day-groove-iii",
 			"flyer": "https://example.com/flyer.jpg"
 		}
 	},
 	{
-		"name": "Psytrance Forest Session",
-		"date": "2026-06-01",
-		"city": "Graubünden",
-		"links": {
-			"ticket": "https://example.com/tickets",
-			"map": "https://maps.example.com/graubunden"
-		}
-	},
-	{
-		"name": "Psytrance Forest 2",
-		"date": "2026-09-25",
-		"city": "Graubünden",
-		"links": {
-			"ticket": "https://example.com/tickets",
-			"map": "https://maps.example.com/graubunden"
-		}
-	},
-	{
-		"name": "Psytrance Forest 2",
-		"date": "2026-09-25",
-		"city": "Graubünden",
-		"links": {
-			"ticket": "https://example.com/tickets",
-			"map": "https://maps.example.com/graubunden"
-		}
-	},
-	{
-		"name": "Alpine Whispers II",
+		"name": "Alpine Whispers 2026",
 		"date": "2026-08-29",
 		"city": "Graubünden",
 		"location": "Alte Schwendi Klosters",
 		"links": {
 			"ticket": "https://example.com/tickets",
 			"map": "https://maps.example.com/graubunden",
-			"goabase": "https://goabase.net/party/dnb-night-2026",
-			"facebook": "https://facebook.com/events/dnb-night-2026",
+			"goabase": "https://goabase.net/party/alpine-whispers-2026",
+			"facebook": "https://facebook.com/events/alpine-whispers-2026",
 			"flyer": "https://example.com/flyer.jpg"
 		}
 	}

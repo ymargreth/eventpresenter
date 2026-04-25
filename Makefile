@@ -45,6 +45,10 @@ run: check-docker
 .PHONY: reset
 reset: down run
 
+.PHONY: rebuild
+rebuild: down
+	@$(COMPOSE_CMD) up -d --build $(SERVICE)
+
 .PHONY: logs
 logs:s
 	@$(COMPOSE_CMD) logs -f $(SERVICE)

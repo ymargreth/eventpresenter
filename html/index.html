@@ -8,10 +8,16 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="title">Summit Groove Collective</div>
+			<div class="logo">
+				<img
+					src="/icons/sgc-icon-white.png"
+					alt="Summit Groove Collective Logo Icon"
+				/>
+			</div>
+			<div class="title">Event Overview</div>
 			<div class="accent"></div>
-			<div class="subtitle">Der Bass muss ficken</div>
-			<div class="tagline hidden">test</div>
+			<div class="subtitle"></div>
+			<div class="tagline"></div>
 			<a id="ticket-link" class="link hidden" href="">Get Your Ticket Now!</a>
 			<div class="accent hidden"></div>
 			<div class="section-title">UPCOMING EVENTS</div>
@@ -20,10 +26,14 @@
 
 			<div class="section-title">STAY IN TOUCH!</div>
 			<div id="socials"></div>
-
+			<div class="logo">
+				<img
+					src="/icons/sgc-name-white.png"
+					alt="Summit Groove Collective Logo Text"
+				/>
+			</div>
 			<div class="footer">©2026 Summit Groove Collective</div>
 		</div>
-
 		<script type="module">
 			import { loadOverview, loadSocials, loadEvent } from "/util.js";
 
@@ -31,7 +41,7 @@
 			const query = params.get("q");
 
 			if (!query) {
-				document.body.innerHTML = "Nothing to display";
+				document.querySelector(".container") = "Nothing to display";
 				throw new Error("No query param");
 			} else if (query === "displayAll") {
 				// Hide elements that are only for the event view
