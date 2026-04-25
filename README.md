@@ -1,4 +1,4 @@
-# EventList
+# eventpresenter by *ymargreth*
 
 > Self-hosted alternative to _LinkTree_
 
