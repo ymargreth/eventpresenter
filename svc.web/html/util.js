@@ -52,19 +52,22 @@ export async function loadSocials() {
 		const res = await fetch(SOCIALS_URL);
 		const socials = await res.json();
 		console.log("Loaded socials:", socials);
+
 		const container = document.getElementById("socials");
 		container.innerHTML = "";
 
 		socials.forEach((s) => {
 			const icon =
-				s.icon ?
-					`<img src="/icons/${s.icon}" alt="${s.title}" style="width:20px; vertical-align:middle; margin-right: 12px; margin-bottom: 2px;">`
-				:	"";
+				s.icon
+					? `<img src="/icons/${s.icon}" alt="${s.title}" style="width:20px; vertical-align:middle; margin-right: 12px; margin-bottom: 2px;">`
+					: "";
+
 			const el = document.createElement("a");
 			el.className = "link glow";
 			el.href = s.link;
 			el.target = "_blank";
 			el.innerHTML = `${icon}${s.title}`;
+
 			container.appendChild(el);
 		});
 	} catch (err) {
@@ -89,17 +92,23 @@ export async function loadEvent(dateStr) {
 
 		// populate page
 		document.title = `${event.name} - Summit Groove Collective`;
-		document.querySelector(".title").textContent = event.name;
-		document.querySelector(".subtitle").textContent =
+
+		document.getElementById("title").textContent = event.name;
+
+		document.getElementById("subtitle").textContent =
 			eventDate.toLocaleDateString(undefined, {
 				weekday: "long",
 				year: "numeric",
 				month: "long",
 				day: "numeric"
 			});
-		document.querySelector(".tagline").textContent =
+
+		document.getElementById("tagline").textContent =
 			`${event.location ? `${event.location} · ` : ""}${event.city}`;
-		document.getElementById("ticket-link").href = event.links.ticket || "#";
+
+		document.getElementById("ticket-link").href =
+			event.links.ticket || "#";
+
 		document.querySelector(".section-title").textContent = "MORE INFOS";
 
 		const container = document.getElementById("links");
@@ -111,16 +120,19 @@ export async function loadEvent(dateStr) {
 				el.className = "link";
 				el.href = link;
 				el.target = "_blank";
+
 				el.innerHTML =
-					key === "map" ?
-						"Open Location in Maps"
-					:	key.charAt(0).toUpperCase() + key.slice(1);
+					key === "map"
+						? "Open Location in Maps"
+						: key.charAt(0).toUpperCase() + key.slice(1);
+
 				container.appendChild(el);
 			}
 		}
 	} catch (err) {
 		document.getElementById("links").innerHTML =
 			`<div class='message'>No Event found for date: ${dateStr}</div>`;
+
 		console.error("Failed to load event links:", err);
 	}
 }
