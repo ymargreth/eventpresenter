@@ -7,7 +7,7 @@ body {
 	font-weight: 300;
 }
 
-.container {
+#container {
 	max-width: 30rem;
 	margin: 0 auto;
 	padding: 1rem 1.25rem 1.25rem;
@@ -19,21 +19,21 @@ body {
 	margin: -1rem auto -1.5rem;
 }
 
-.title {
+#title {
 	font-size: 2.4rem;
 	font-weight: 700;
 	letter-spacing: 0.125rem;
 	margin-bottom: 0.625rem;
 }
 
-.subtitle {
+#subtitle {
 	font-size: 1.6rem;
 	font-weight: 500;
 	color: #aaa;
 	margin-bottom: 1rem;
 }
 
-.tagline {
+#tagline {
 	font-size: 1rem;
 	color: #aaa;
 }
@@ -121,7 +121,7 @@ body {
 	box-shadow: 0 0 0.625rem #00ffcc;
 }
 
-.footer {
+#footer {
 	margin-top: 1.25rem;
 	font-size: 0.75rem;
 	color: #666;
