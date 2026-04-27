@@ -13,8 +13,7 @@ body {
 	padding: 1rem 1.25rem 1.25rem;
 }
 
-#logo-top img,
-#logo-bottom img {
+.logo img {
 	max-width: 10rem;
 	height: auto;
 	margin: -1rem auto -1.5rem;
@@ -113,8 +112,7 @@ body {
 	transition: all 0.2s ease;
 }
 
-#accent-top,
-#accent-bottom {
+.accent {
 	height: 0.25rem;
 	width: 5rem;
 	margin: 1.25rem auto;
