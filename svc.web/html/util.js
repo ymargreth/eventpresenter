@@ -43,10 +43,14 @@ function donwloadQR(query) {
 async function loadQrGenerator() {
 	try {
 		qrOptions = await fetchJSON("sgc-qr");
-		document.getElementById("container").innerHTML = `
-					<div class="section-title">GENERATE A QR CODE</div>
+		document.title = "QR Code Generator - Event Presenter";
+		document.getElementById("title").textContent = "QR Code Generator";
+		document.body.querySelector("main").innerHTML = `
+					<div class="section-title" style="margin-bottom: 2rem;">GENERATE A QR CODE</div>
+					<div style="margin: auto 2rem; display:block">
 					<input id="qrtext" type="text" placeholder="Enter text or URL" />
 					<button onclick="displayQR()">Generate QR Code</button>
+					</div>
 					<div id="qrcanvas" class="qr"></div>
 				`;
 	} catch (err) {
@@ -75,7 +79,7 @@ async function loadOverview() {
 			container.innerHTML = "<div class='event'>No upcoming events</div>";
 			return;
 		}
-
+		document.title = "Overview - Event Presenter";
 		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
 
 		upcoming.forEach((e) => {
@@ -137,10 +141,9 @@ async function loadSocials() {
 
 async function loadEvent(dateStr) {
 	try {
-		const res = await fetchJSON("events");
-		const events = await res.json();
-
-		const event = events.find((e) => e.date === dateStr);
+		const event = fetchJSON("events").then((events) =>
+			events.find((e) => e.date === dateStr)
+		);
 		const eventDate = new Date(dateStr);
 
 		if (!event) {
@@ -149,7 +152,7 @@ async function loadEvent(dateStr) {
 		}
 
 		// populate page
-		document.title = `${event.name} - Summit Groove Collective`;
+		document.title = `${event.name} - Event Presenter`;
 
 		document.getElementById("title").textContent = event.name;
 

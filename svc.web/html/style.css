@@ -7,6 +7,20 @@ body {
 	font-weight: 300;
 }
 
+input,
+button {
+	font-family: inherit;
+	font-size: 1rem;
+	text-align: center;
+	border: none;
+	outline: none;
+	margin: 0.875rem;
+	padding: 0.25rem 1rem;
+}
+
+footer {
+	margin-top: 3rem;
+}
 #header {
 	padding: 2rem 1.25rem 0;
 	text-align: right;
@@ -24,8 +38,8 @@ body {
 	margin: -1rem auto -1.5rem;
 }
 
-#qrcanvas {
-	max-width: 10rem;
+#qrcanvas canvas {
+	max-width: 15rem;
 	height: auto;
 	margin: 2rem;
 	object-fit: contain;
@@ -60,7 +74,6 @@ body {
 .block {
 	display: block;
 	padding: 1rem;
-	margin: 0.75rem 0;
 	border-radius: 0.875rem;
 	background: linear-gradient(135deg, #111, #1f1f1f);
 }
@@ -69,6 +82,8 @@ body {
 	text-decoration: none;
 	color: #fff;
 	border: 1px solid #2a2a2a;
+	margin: 0.75rem 0;
+
 	transition: all 0.2s ease;
 	cursor: pointer;
 }
@@ -81,7 +96,6 @@ body {
 #events .link {
 	text-align: left;
 	padding: 0.875rem;
-	margin: 1rem 0;
 	border-radius: 0.75rem;
 	background: #111;
 }
@@ -137,7 +151,7 @@ body {
 	box-shadow: 0 0 0.625rem #00ffcc;
 }
 
-#footer {
+#disclaimer {
 	margin-top: 1.25rem;
 	font-size: 0.75rem;
 	color: #666;

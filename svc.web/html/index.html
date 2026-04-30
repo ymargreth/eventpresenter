@@ -10,38 +10,42 @@
 	</head>
 	<body>
 		<div id="container">
-			<div id="logo-top" class="logo">
-				<img
-					src="/icons/sgc-icon-white.png"
-					alt="Summit Groove Collective Logo Icon"
-				/>
-			</div>
-			<div id="title">Event Overview</div>
-			<div class="accent"></div>
-			<div id="subtitle"></div>
-			<div id="tagline"></div>
+			<header>
+				<div id="logo-top" class="logo">
+					<img
+						src="/icons/sgc-icon-white.png"
+						alt="Summit Groove Collective Logo Icon"
+					/>
+				</div>
+				<div id="title">Event Overview</div>
+				<div class="accent"></div>
+				<div id="subtitle"></div>
+				<div id="tagline"></div>
+			</header>
+			<main>
+				<a id="ticket-link" class="block link hidden" href="" target="_blank">
+					Get Your Ticket Now!
+				</a>
 
-			<a id="ticket-link" class="block link hidden" href="" target="_blank">
-				Get Your Ticket Now!
-			</a>
+				<div class="accent hidden"></div>
 
-			<div class="accent hidden"></div>
+				<div class="section-title">UPCOMING EVENTS</div>
+				<div id="links" class="hidden"></div>
+				<div id="events"></div>
 
-			<div class="section-title">UPCOMING EVENTS</div>
-			<div id="links" class="hidden"></div>
-			<div id="events"></div>
+				<div class="section-title">STAY IN TOUCH!</div>
+				<div id="socials"></div>
+			</main>
+			<footer>
+				<div id="logo-bottom" class="logo">
+					<img
+						src="/icons/sgc-name-white.png"
+						alt="Summit Groove Collective Logo Text"
+					/>
+				</div>
 
-			<div class="section-title">STAY IN TOUCH!</div>
-			<div id="socials"></div>
-
-			<div id="logo-bottom" class="logo">
-				<img
-					src="/icons/sgc-name-white.png"
-					alt="Summit Groove Collective Logo Text"
-				/>
-			</div>
-
-			<div id="footer">©2026 Summit Groove Collective</div>
+				<div id="disclaimer">©2026 Summit Groove Collective</div>
+			</footer>
 		</div>
 
 		<script>
@@ -67,7 +71,7 @@
 					.forEach((el) => el.classList.remove("hidden"));
 
 				// Hide elements that are only for the overview
-				document.getElementById("header").classList.add("hidden");
+				// document.getElementById("header").classList.add("hidden");
 				document.getElementById("events").classList.add("hidden");
 
 				loadEvent(query);
