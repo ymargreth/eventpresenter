@@ -54,7 +54,7 @@ async function loadQrGenerator() {
 	}
 }
 
-async function loadOverview() {
+async function loadDashboard() {
 	try {
 		qrOptions = await fetchJSON("sgc-qr");
 		const events = await fetchJSON("events");

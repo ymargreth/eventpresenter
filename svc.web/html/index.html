@@ -16,7 +16,7 @@
 					alt="Summit Groove Collective Logo Icon"
 				/>
 			</div>
-			<div id="title">Event Overview</div>
+			<div id="title">Event Dashboard</div>
 			<div class="accent"></div>
 			<div id="subtitle"></div>
 			<div id="tagline"></div>
@@ -55,7 +55,7 @@
 				// Hide elements that are only for the event view
 				document.getElementById("tagline").classList.add("hidden");
 
-				loadOverview();
+				loadDashboard();
 			} else if (query === "qr") {
 				loadQrGenerator();
 			} else if (query === "admin") {
@@ -66,7 +66,7 @@
 					.querySelectorAll(".hidden")
 					.forEach((el) => el.classList.remove("hidden"));
 
-				// Hide elements that are only for the overview
+				// Hide elements that are only for the Dashboard view
 				document.getElementById("header").classList.add("hidden");
 				document.getElementById("events").classList.add("hidden");
 
