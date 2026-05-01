@@ -7,6 +7,25 @@ body {
 	font-weight: 300;
 }
 
+input,
+button {
+	font-family: inherit;
+	font-size: 1rem;
+	text-align: center;
+	border: none;
+	outline: none;
+	margin: 0.875rem;
+	padding: 0.25rem 1rem;
+}
+
+footer {
+	margin-top: 3rem;
+}
+#header {
+	padding: 2rem 1.25rem 0;
+	text-align: right;
+}
+
 #container {
 	max-width: 30rem;
 	margin: 0 auto;
@@ -17,6 +36,13 @@ body {
 	max-width: 10rem;
 	height: auto;
 	margin: -1rem auto -1.5rem;
+}
+
+#qrcanvas canvas {
+	max-width: 15rem;
+	height: auto;
+	margin: 2rem;
+	object-fit: contain;
 }
 
 #title {
@@ -45,16 +71,21 @@ body {
 	letter-spacing: 0.0625rem;
 }
 
-.link {
+.block {
 	display: block;
 	padding: 1rem;
-	margin: 0.75rem 0;
 	border-radius: 0.875rem;
+	background: linear-gradient(135deg, #111, #1f1f1f);
+}
+
+.link {
 	text-decoration: none;
 	color: #fff;
-	background: linear-gradient(135deg, #111, #1f1f1f);
 	border: 1px solid #2a2a2a;
+	margin: 0.75rem 0;
+
 	transition: all 0.2s ease;
+	cursor: pointer;
 }
 
 .link:hover {
@@ -62,7 +93,14 @@ body {
 	background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
 }
 
-.glow:hover {
+#events .link {
+	text-align: left;
+	padding: 0.875rem;
+	border-radius: 0.75rem;
+	background: #111;
+}
+
+#socials .link:hover {
 	border-color: #444;
 	box-shadow: 0 0 0.9375rem #00ffff;
 }
@@ -76,18 +114,10 @@ body {
 	box-shadow: 0 0 0.9375rem #bb00ff;
 }
 
-.event {
-	text-align: left;
-	padding: 0.875rem;
-	margin: 1rem 0;
-	border-radius: 0.75rem;
-	background: #111;
-	border: 1px solid #2a2a2a;
-}
-
-.event:hover {
-	transform: scale(1.03);
-	background: #1a1a1a;
+.event-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .event-title {
@@ -121,7 +151,7 @@ body {
 	box-shadow: 0 0 0.625rem #00ffcc;
 }
 
-#footer {
+#disclaimer {
 	margin-top: 1.25rem;
 	font-size: 0.75rem;
 	color: #666;

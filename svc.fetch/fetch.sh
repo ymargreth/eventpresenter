@@ -18,6 +18,10 @@ while true; do
       && mv "$TARGET_DIR/socials.tmp" "$TARGET_DIR/socials.json" \
       || echo "$(date +"%D %T") socials.json failed"
 
+   curl -fsSL "$BASE_URL/sgc-qr.json" -o "$TARGET_DIR/sgc-qr.tmp" \
+      && mv "$TARGET_DIR/sgc-qr.tmp" "$TARGET_DIR/sgc-qr.json" \
+      || echo "$(date +"%D %T") sgc-qr.json failed"
+
    echo "$(date +"%D %T") Sleeping..."
    sleep 300
 done

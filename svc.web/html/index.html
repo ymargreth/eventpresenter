@@ -1,71 +1,77 @@
 <!doctype html>
 <html>
 	<head>
+		<title>Summit Groove Collective</title>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Summit Groove Collective</title>
 		<link rel="stylesheet" href="/style.css" />
+		<script src="https://unpkg.com/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
+		<script src="/util.js"></script>
 	</head>
 	<body>
 		<div id="container">
-			<div id="logo-top" class="logo">
-				<img
-					src="/icons/sgc-icon-white.png"
-					alt="Summit Groove Collective Logo Icon"
-				/>
-			</div>
-			<div id="title">Event Overview</div>
-			<div class="accent"></div>
-			<div id="subtitle"></div>
-			<div id="tagline"></div>
+			<header>
+				<div id="logo-top" class="logo">
+					<img
+						src="/icons/sgc-icon-white.png"
+						alt="Summit Groove Collective Logo Icon"
+					/>
+				</div>
+				<div id="title">Event Overview</div>
+				<div class="accent"></div>
+				<div id="subtitle"></div>
+				<div id="tagline"></div>
+			</header>
+			<main>
+				<a id="ticket-link" class="block link hidden" href="" target="_blank">
+					Get Your Ticket Now!
+				</a>
 
-			<a id="ticket-link" class="link hidden" href="" target="_blank">
-				Get Your Ticket Now!
-			</a>
+				<div class="accent hidden"></div>
 
-			<div class="accent hidden"></div>
+				<div class="section-title">UPCOMING EVENTS</div>
+				<div id="links" class="hidden"></div>
+				<div id="events"></div>
 
-			<div class="section-title">UPCOMING EVENTS</div>
-			<div id="links" class="hidden"></div>
-			<div id="events"></div>
+				<div class="section-title">STAY IN TOUCH!</div>
+				<div id="socials"></div>
+			</main>
+			<footer>
+				<div id="logo-bottom" class="logo">
+					<img
+						src="/icons/sgc-name-white.png"
+						alt="Summit Groove Collective Logo Text"
+					/>
+				</div>
 
-			<div class="section-title">STAY IN TOUCH!</div>
-			<div id="socials"></div>
-
-			<div id="logo-bottom" class="logo">
-				<img
-					src="/icons/sgc-name-white.png"
-					alt="Summit Groove Collective Logo Text"
-				/>
-			</div>
-
-			<div id="footer">©2026 Summit Groove Collective</div>
+				<div id="disclaimer">©2026 Summit Groove Collective</div>
+			</footer>
 		</div>
 
-		<script type="module">
-			import { loadOverview, loadSocials, loadEvent } from "/util.js";
-
+		<script>
 			const params = new URLSearchParams(window.location.search);
 			const query = params.get("q");
 
 			if (!query) {
-				document.getElementById("container").innerHTML =
-					"Nothing to display";
+				document.getElementById("container").innerHTML = "Nothing to display";
 				throw new Error("No query param");
 			} else if (query === "displayAll") {
 				// Hide elements that are only for the event view
 				document.getElementById("tagline").classList.add("hidden");
 
 				loadOverview();
-			} else if (
-				query.match(/\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/)
-			) {
+			} else if (query === "qr") {
+				loadQrGenerator();
+			} else if (query === "admin") {
+				loadAdminPanel();
+			} else if (query.match(/\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/)) {
 				// Show hidden elements
 				document
 					.querySelectorAll(".hidden")
 					.forEach((el) => el.classList.remove("hidden"));
 
 				// Hide elements that are only for the overview
+				// document.getElementById("header").classList.add("hidden");
 				document.getElementById("events").classList.add("hidden");
 
 				loadEvent(query);
@@ -73,8 +79,7 @@
 				document.body.innerHTML = "Invalid query param";
 				throw new Error("Invalid query param");
 			}
-
-			loadSocials();
+			if (query !== "qr") loadSocials();
 		</script>
 	</body>
 </html>
