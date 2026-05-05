@@ -6,6 +6,65 @@ const SOCIALS_URL = "/feed/socials.json";
 
 let qrOptions;
 
+// WORK IN PROGRESS START
+// this is a bit of a mess right now, but the idea is to have a simple page structure
+// that can be easily populated with content from the JSON files.
+class PresenterPageLink {
+	constructor(title, link, icon) {
+		const el = document.createElement("a");
+		el.className = "block link";
+		el.href = link;
+		el.target = "_blank";
+		el.innerHTML = `${icon ? `<img src="/icons/${icon}" alt="${title}" style="width:20px; vertical-align:middle; margin-right: 12px; margin-bottom: 2px;">` : ""}${title}`;
+	}
+}
+
+class PresenterPageSection {
+	constructor(title, content) {
+		this.container = document.createElement("div");
+
+		this.title = title;
+		this.content = content;
+		content.forEach((item) => {
+			this.appendLink(item);
+		});
+	}
+	appendLink({ title, link, icon }) {
+		// is this the right way to do it? Feels a bit weird to have this method here, but it allows us to keep the content structure simple and flexible
+		const el = new PresenterPageLink(title, link, icon);
+		this.container.appendChild(el);
+	}
+}
+
+class PresenterPage {
+	constructor() {
+		this.header = {};
+		this.body = {};
+		this.footer = {};
+	}
+	_present() {
+		renderHeader(this.header);
+		this.body.forEach((section) => renderSection(section));
+		renderFooter(this.footer);
+	}
+	renderSection(section) {
+		const s = new PresenterPageSection(section.title, section.content);
+		document.body.appendChild(s.container);
+	}
+	renderHeader(header) {}
+	renderFooter(footer) {}
+}
+
+async function loadPage() {
+	page = new PresenterPage();
+	page.header = {};
+	page.body = {};
+	page.footer = {};
+}
+
+// above classes and functions are just a sketch at the moment
+// WORK IN PROGRESS FINISH
+
 async function fetchJSON(file) {
 	return fetch(`/feed/${file}.json`)
 		.then((res) => res.json())
