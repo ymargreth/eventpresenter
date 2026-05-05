@@ -137,8 +137,8 @@ async function loadSocials() {
 
 async function loadEvent(dateStr) {
 	try {
-		const res = await fetchJSON("events");
-		const events = await res.json();
+		const events = await fetchJSON("events");
+		// const events = await res.json();
 
 		const event = events.find((e) => e.date === dateStr);
 		const eventDate = new Date(dateStr);

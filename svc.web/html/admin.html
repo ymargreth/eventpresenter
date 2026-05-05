@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Summit Groove Collective</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/style.css" />
+		<script src="https://unpkg.com/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
+		<script src="/util.js"></script>
+	</head>
+	<body>
+		<div id="header" class="admin">Logout</div>
+
+		<div id="container">
+			<div id="logo-top" class="logo">
+				<img
+					src="/icons/sgc-icon-white.png"
+					alt="Summit Groove Collective Logo Icon"
+				/>
+			</div>
+			<div id="title">Admin Dashboard</div>
+			<div class="accent"></div>
+			<div id="subtitle"></div>
+			<div id="tagline"></div>
+
+			<div class="accent hidden"></div>
+
+			<div class="section-title">UPCOMING EVENTS</div>
+			<div id="links" class="hidden"></div>
+			<div id="events"></div>
+
+			<div class="section-title">USEFUL TOOLS</div>
+			<div id="socials"></div>
+
+			<div id="logo-bottom" class="logo">
+				<img
+					src="/icons/sgc-name-white.png"
+					alt="Summit Groove Collective Logo Text"
+				/>
+			</div>
+
+			<div id="footer">©2026 Summit Groove Collective</div>
+		</div>
+
+		<script>
+			document.getElementById("tagline").classList.add("hidden");
+			loadDashboard();
+			// loadAdminTools();
+		</script>
+	</body>
+</html>
