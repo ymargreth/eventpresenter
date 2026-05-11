@@ -9,13 +9,30 @@ let qrOptions;
 // WORK IN PROGRESS START
 // this is a bit of a mess right now, but the idea is to have a simple page structure
 // that can be easily populated with content from the JSON files.
+class PresenterPageItem {
+	constructor(title, content, className = "") {
+		const container = document.createElement("div");
+		container.className = className;
+		container.content = content;
+		return this.container;
+	}
+}
+
 class PresenterPageLink {
 	constructor(title, link, icon) {
-		const el = document.createElement("a");
-		el.className = "block link";
-		el.href = link;
-		el.target = "_blank";
-		el.innerHTML = `${icon ? `<img src="/icons/${icon}" alt="${title}" style="width:20px; vertical-align:middle; margin-right: 12px; margin-bottom: 2px;">` : ""}${title}`;
+		this.el = document.createElement("a");
+		this.el.className = "block link";
+		this.el.classList.add(icon ? "glow" : ""); // only add glow class if there's an icon, to make it stand out more
+		this.el.href = link;
+		this.el.target = "_blank";
+		this.el.innerHTML = `${icon ? `<img src="/icons/${icon}" alt="${title}" style="width:20px; vertical-align:middle; margin-right: 12px; margin-bottom: 2px;">` : ""}${title}`;
+	}
+}
+
+class PresenterPageButton extends PresenterPageLink {
+	constructor(title, onClick, icon, width = "auto") {
+		super(title, onClick, icon);
+		this.el.style.width = width;
 	}
 }
 
@@ -32,7 +49,7 @@ class PresenterPageSection {
 	appendLink({ title, link, icon }) {
 		// is this the right way to do it? Feels a bit weird to have this method here, but it allows us to keep the content structure simple and flexible
 		const el = new PresenterPageLink(title, link, icon);
-		this.container.appendChild(el);
+		this.container.appendChild(el.el);
 	}
 }
 
