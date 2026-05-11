@@ -30,7 +30,7 @@ function displayQR() {
 
 function generateQR(query) {
 	const options = qrOptions;
-	options.data = `https://summitgroovecollective.com/?q=${encodeURIComponent(query)}`;
+	options.data = `https://events.summitgroove.ch/?q=${encodeURIComponent(query)}`;
 
 	return new QRCodeStyling(options);
 }
