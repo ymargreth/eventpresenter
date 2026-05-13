@@ -43,11 +43,11 @@ function donwloadQR(query) {
 async function loadQrGenerator() {
 	try {
 		qrOptions = await fetchJSON("sgc-qr");
-		document.title = "QR Code Generator - Event Presenter";
+		document.title = "QR Code Generator · Event Presenter";
 		document.getElementById("title").textContent = "QR Code Generator";
 		document.body.querySelector("main").innerHTML = `
 					<div class="section-title" style="margin-bottom: 2rem;">GENERATE A QR CODE</div>
-					<div style="margin: auto 2rem; display:block">
+					<div id="qrinput"style="margin: auto 2rem; display:block">
 					<input id="qrtext" type="text" placeholder="Enter text or URL" />
 					<button onclick="displayQR()">Generate QR Code</button>
 					</div>
@@ -58,61 +58,11 @@ async function loadQrGenerator() {
 	}
 }
 
-async function loadDashboard() {
-	try {
-		qrOptions = await fetchJSON("sgc-qr");
-		const events = await fetchJSON("events");
-
-		const container = document.getElementById("events");
-		container.innerHTML = "";
-
-		const now = new Date();
-
-		const upcoming = events
-			.map((e) => ({ ...e, dateObj: new Date(e.date) }))
-			.filter((e) => e.dateObj >= now && e.visible)
-			.sort((a, b) => a.dateObj - b.dateObj);
-
-		const past = events.filter((e) => !upcoming.includes(e) && e.visible);
-
-		if (upcoming.length === 0) {
-			container.innerHTML = "<div class='event'>No upcoming events</div>";
-			return;
-		}
-		document.title = "Overview - Event Presenter";
-		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
-
-		upcoming.forEach((e) => {
-			const location = e.location ? ` @ ${e.location}` : "";
-			const page = `/?q=${e.date}`;
-			const qrCode = generateQR(e.date);
-			const el = document.createElement("div");
-			el.className = "event-item";
-
-			el.innerHTML = `
-									<div class="event link" style="width: 80%" onclick="window.open('${page}', '_blank')">
-                  	<div class="event-title">${e.name}</div>
-                  	<div class="event-meta">${e.date} ·${location}</div>
-									</div>
-									<div class="event link" style="margin-left: 0.5rem; width: 5rem; font-size: 0.8rem; text-align: center;" onclick="donwloadQR('${e.date}')">
-										Download 
-										<br>
-										QR
-									</div>
-               `;
-
-			container.appendChild(el);
-		});
-	} catch (err) {
-		document.getElementById("events").innerHTML =
-			"<div class='message'>Failed to load events</div>";
-		console.error("Failed to load events:", err);
-	}
-}
-
 async function loadOverview() {
 	try {
 		qrOptions = await fetchJSON("sgc-qr");
+		document.title = "Event Overview · Event Presenter";
+		document.getElementById("title").textContent = "Event Overview";
 		const events = await fetchJSON("events");
 
 		const container = document.getElementById("events");
@@ -216,7 +166,7 @@ async function loadEvent(dateStr) {
 		}
 
 		// populate page
-		document.title = `${event.name} - Event Presenter`;
+		document.title = `${event.name} · Event Presenter`;
 
 		document.getElementById("title").textContent = event.name;
 
@@ -262,3 +212,34 @@ async function loadEvent(dateStr) {
 		console.error("Failed to load event links:", err);
 	}
 }
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function clickMenu(date) {
+	document.getElementById(`dropdown-content-${date}`).classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function (event) {
+	var openDropdown = document.querySelector(".show");
+	console.log(openDropdown, event.target);
+	if (!openDropdown || event.target.tagName !== "A") {
+		console.log("No open dropdown found");
+		return;
+	}
+	if (event.target.id.endsWith(openDropdown.id.substring(16))) {
+		console.log(
+			"Clicked inside open dropdown",
+			event.target.id,
+			openDropdown.id
+		);
+		alert("Clicked inside open dropdown");
+	} else {
+		console.log(
+			"Clicked outside of open dropdown",
+			event.target.id,
+			openDropdown.id
+		);
+	}
+	openDropdown.classList.remove("show");
+};

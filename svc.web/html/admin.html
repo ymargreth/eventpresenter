@@ -1,12 +1,76 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Summit Groove Collective</title>
+		<title>Admin Dashboard · Event Presenter</title>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="/style.css" />
 		<script src="https://unpkg.com/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
 		<script src="/util.js"></script>
+		<script>
+			async function loadDashboard() {
+				try {
+					qrOptions = await fetchJSON("sgc-qr");
+					const events = await fetchJSON("events");
+
+					const container = document.getElementById("events");
+					container.innerHTML = "";
+
+					const now = new Date();
+
+					const upcoming = events
+						.map((e) => ({ ...e, dateObj: new Date(e.date) }))
+						.filter((e) => e.dateObj >= now)
+						.sort((a, b) => a.dateObj - b.dateObj);
+
+					const past = events.filter((e) => !upcoming.includes(e));
+
+					if (upcoming.length === 0) {
+						container.innerHTML = "<div class='event'>No upcoming events</div>";
+						return;
+					}
+					document.title = "Overview - Event Presenter";
+					document.querySelector(".section-title").textContent =
+						"UPCOMING EVENTS";
+
+					upcoming.forEach((e) => {
+						const location = e.location ? ` @ ${e.location}` : "";
+						const page = `/?q=${e.date}`;
+						const qrCode = generateQR(e.date);
+						const el = document.createElement("div");
+						el.className = "event-item";
+
+						el.innerHTML = `
+									<div class="event link" style="width: 80%; text-align: left;" onclick="window.open('${page}', '_blank')">
+                  	<div class="event-title">${e.name}</div>
+                  	<div class="event-meta">${e.date} ·${location}</div>
+									</div>
+									<div class="event link button" onclick="donwloadQR('${e.date}')">
+										Download 
+										<br>
+										QR
+									</div>
+									<div class="dropdown">
+										<div id="dropdown-btn-${e.date}" style="width: auto; font-size: 1rem; padding: .875rem .125rem;" class="event link button" onclick="clickMenu('${e.date}')">
+											⋮
+										</div>
+										<div data-event="${e.date}" class="dropdown-content">
+    									<a data-action="hide" data-event="${e.date}" href="#">Hide</a>
+											<a data-action="edit data-event="${e.date}" href="#">Edit</a>
+											<a data-action="delete" data-event="${e.date}" style="color: #ff0000;" href="#">Delete</a>
+  									</div>
+									</div>
+               `;
+
+						container.appendChild(el);
+					});
+				} catch (err) {
+					document.getElementById("events").innerHTML =
+						"<div class='message'>Failed to load events</div>";
+					console.error("Failed to load events:", err);
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<div id="header" class="admin">Logout</div>
@@ -39,7 +103,7 @@
 				/>
 			</div>
 
-			<div id="footer">©2026 Summit Groove Collective</div>
+			<div id="disclaimer">©2026 Summit Groove Collective</div>
 		</div>
 
 		<script>
