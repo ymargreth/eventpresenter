@@ -19,7 +19,10 @@ button {
 }
 
 footer {
-	margin-top: 3rem;
+	position: relative;
+	width: 30rem;
+	bottom: 0.5rem;
+	margin-top: 2rem;
 }
 #header {
 	padding: 2rem 1.25rem 0;
@@ -27,6 +30,8 @@ footer {
 }
 
 #container {
+	min-height: 100vh;
+	height: max-content;
 	max-width: 30rem;
 	margin: 0 auto;
 	padding: 1rem 1.25rem 1.25rem;
