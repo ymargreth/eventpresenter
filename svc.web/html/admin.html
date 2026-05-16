@@ -51,13 +51,13 @@
 										QR
 									</div>
 									<div class="dropdown">
-										<div id="dropdown-btn-${e.date}" style="width: auto; font-size: 1rem; padding: .875rem .125rem;" class="event link button" onclick="clickMenu('${e.date}')">
+										<div id="dropdown-btn-${e.date}" style="width: auto; font-size: 1rem; padding: .875rem .125rem;" class="event link button" onclick="toggleDropdown('${e.date}')">
 											⋮
 										</div>
-										<div data-event="${e.date}" class="dropdown-content">
-    									<a data-action="hide" data-event="${e.date}" href="#">Hide</a>
-											<a data-action="edit data-event="${e.date}" href="#">Edit</a>
-											<a data-action="delete" data-event="${e.date}" style="color: #ff0000;" href="#">Delete</a>
+										<div id="dropdown-content-${e.date}" class="dropdown-content">
+    									<a id="hide-${e.date}" data-event="${e.date}" href="#">Hide</a>
+											<a id="edit-${e.date}" data-event="${e.date}" href="#">Edit</a>
+											<a id="delete-${e.date}" data-event="${e.date}" style="color: #ff0000;" href="#">Delete</a>
   									</div>
 									</div>
                `;

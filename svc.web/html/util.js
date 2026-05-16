@@ -215,31 +215,27 @@ async function loadEvent(dateStr) {
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function clickMenu(date) {
-	document.getElementById(`dropdown-content-${date}`).classList.toggle("show");
+function toggleDropdown(date) {
+	document.getElementById(`dropdown-content-${date}`).classList.toggle("openDropdown");
 }
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
-	var openDropdown = document.querySelector(".show");
+	var openDropdown = document.querySelector(".openDropdown");
 	console.log(openDropdown, event.target);
-	if (!openDropdown || event.target.tagName !== "A") {
-		console.log("No open dropdown found");
+	if (!openDropdown) {
+		console.log("No open dropdown found", event.target, openDropdown?.id);
 		return;
 	}
 	if (event.target.id.endsWith(openDropdown.id.substring(16))) {
-		console.log(
-			"Clicked inside open dropdown",
-			event.target.id,
-			openDropdown.id
-		);
-		alert("Clicked inside open dropdown");
+		console.log("Clicked on open dropdown element", event.target, openDropdown.id);
+		return;
 	} else {
 		console.log(
 			"Clicked outside of open dropdown",
-			event.target.id,
+			event.target,
 			openDropdown.id
 		);
 	}
-	openDropdown.classList.remove("show");
+	openDropdown.classList.remove("openDropdown");
 };
