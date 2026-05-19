@@ -185,6 +185,18 @@ async function loadSocials() {
 	}
 }
 
+async function loadFlyer(shareLink) {
+	if (!shareLink) {
+		document.getElementById("flyer").classList.add("hidden");
+		return;
+	}
+	document.getElementById("flyer").innerHTML = `
+		<div class="section-title">FLYER</div>
+		<a href="${shareLink}/download" target="_blank" class="block link">Download in HD</a>
+		<img src="${shareLink}/preview" alt="Event Flyer" style="width:100%; border-radius: 8px;">
+	`;
+}
+
 async function loadEvent(dateStr) {
 	try {
 		const event = await fetchJSON("events").then((events) =>
@@ -227,7 +239,7 @@ async function loadEvent(dateStr) {
 		container.innerHTML = "";
 
 		for (const [key, link] of Object.entries(event.links)) {
-			if (key !== "ticket") {
+			if (key !== "ticket" && key !== "flyer") {
 				const el = document.createElement("a");
 				el.className = "block link";
 				el.href = link;
@@ -241,6 +253,8 @@ async function loadEvent(dateStr) {
 				container.appendChild(el);
 			}
 		}
+
+		loadFlyer(event.links.flyer || false);
 	} catch (err) {
 		document.getElementById("links").innerHTML =
 			`<div class='message'>No Event found for date: ${dateStr}</div>`;
