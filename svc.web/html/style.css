@@ -34,7 +34,7 @@ footer {
 }
 
 #header {
-	padding: 2rem 1.25rem 0;
+	padding: 1rem 1.25rem 0;
 	text-align: right;
 }
 
@@ -97,12 +97,12 @@ footer {
 	color: #fff;
 	border: 1px solid #2a2a2a;
 	margin: 0.75rem 0;
-
 	transition: all 0.2s ease;
 	cursor: pointer;
 }
 
-.link:hover {
+.link:hover,
+.link:focus {
 	transform: scale(1.03);
 	background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
 }
@@ -119,7 +119,8 @@ footer {
 	background: #111;
 }
 
-#socials .link:hover {
+#socials .link:hover,
+#socials .link:focus {
 	border-color: #444;
 	box-shadow: 0 0 0.9375rem #00ffff;
 }
@@ -128,7 +129,8 @@ footer {
 	margin: 1.25rem auto;
 }
 
-#ticket-link:hover {
+#ticket-link:hover,
+#ticket-link:focus {
 	border-color: #444;
 	box-shadow: 0 0 0.9375rem #bb00ff;
 }
@@ -200,19 +202,109 @@ footer {
 
 /* Links inside the dropdown */
 .dropdown-content a {
+	display: block;
+
 	background-color: #181818;
 	font-size: 0.8rem;
 	padding: 12px 16px;
 	text-decoration: none;
-	display: block;
+	cursor: pointer;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {
+.dropdown-content a:hover,
+.dropdown-content a:focus {
 	background-color: #161616;
 }
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.openDropdown {
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	border: 1px solid #888;
+	width: 80%;
+	box-shadow:
+		0 4px 8px 0 rgba(0, 0, 0, 0.2),
+		0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+	from {
+		top: -300px;
+		opacity: 0;
+	}
+	to {
+		top: 0;
+		opacity: 1;
+	}
+}
+
+@keyframes animatetop {
+	from {
+		top: -300px;
+		opacity: 0;
+	}
+	to {
+		top: 0;
+		opacity: 1;
+	}
+}
+
+/* The Close Button */
+.close {
+	color: white;
+	float: right;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-header {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
+
+.modal-body {
+	padding: 2px 16px;
+	color: black;
+}
+
+.modal-footer {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
+
+/* Show the dropdown menu or modal */
+.open {
 	display: block;
 }

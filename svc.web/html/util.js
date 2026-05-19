@@ -92,7 +92,7 @@ async function loadOverview() {
 			el.className = "event-item";
 
 			el.innerHTML = `
-									<div class="event link" style="width: 100%" onclick="window.open('${page}', '_blank')">
+									<div class="event link" style="width: 100%; text-align: left;" onclick="window.open('${page}', '_blank')">
                   	<div class="event-title">${e.name}</div>
                   	<div class="event-meta">${e.date} ·${location}</div>
 									</div>
@@ -216,20 +216,29 @@ async function loadEvent(dateStr) {
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function toggleDropdown(date) {
-	document.getElementById(`dropdown-content-${date}`).classList.toggle("openDropdown");
+	document.getElementById(`dropdown-content-${date}`).classList.toggle("open");
 }
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
-	var openDropdown = document.querySelector(".openDropdown");
+	var openDropdown = document.querySelector(".dropdown-content.open");
 	console.log(openDropdown, event.target);
 	if (!openDropdown) {
 		console.log("No open dropdown found", event.target, openDropdown?.id);
 		return;
 	}
 	if (event.target.id.endsWith(openDropdown.id.substring(16))) {
-		console.log("Clicked on open dropdown element", event.target, openDropdown.id);
-		return;
+		console.log(
+			"Clicked on open dropdown element",
+			event.target,
+			openDropdown.id
+		);
+		if (event.target.tagName === "A") {
+			console.log("Clicked on dropdown link", event.target);
+			openModal(event.target.dataset.function, event.target.dataset.event);
+		} else {
+			return;
+		}
 	} else {
 		console.log(
 			"Clicked outside of open dropdown",
@@ -237,5 +246,18 @@ window.onclick = function (event) {
 			openDropdown.id
 		);
 	}
-	openDropdown.classList.remove("openDropdown");
+	openDropdown.classList.remove("open");
 };
+
+/* Modal functions */
+
+function closeModal() {
+	document.getElementById("myModal").classList.remove("open");
+}
+
+function openModal(functionName, date) {
+	const modal = document.getElementById("myModal");
+	document.getElementById("modal-title").textContent =
+		`${functionName.charAt(0).toUpperCase() + functionName.slice(1)} Event`;
+	modal.classList.add("open");
+}

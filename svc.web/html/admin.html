@@ -29,7 +29,7 @@
 						container.innerHTML = "<div class='event'>No upcoming events</div>";
 						return;
 					}
-					document.title = "Overview - Event Presenter";
+					// document.title = "Admin Dashboard - Event Presenter";
 					document.querySelector(".section-title").textContent =
 						"UPCOMING EVENTS";
 
@@ -42,7 +42,7 @@
 
 						el.innerHTML = `
 									<div class="event link" style="width: 80%; text-align: left;" onclick="window.open('${page}', '_blank')">
-                  	<div class="event-title">${e.name}</div>
+                  	<div class="event-title">${e.name}${!e.visible ? " (Hidden)" : ""}</div>
                   	<div class="event-meta">${e.date} ·${location}</div>
 									</div>
 									<div class="event link button" onclick="donwloadQR('${e.date}')">
@@ -55,9 +55,9 @@
 											⋮
 										</div>
 										<div id="dropdown-content-${e.date}" class="dropdown-content">
-    									<a id="hide-${e.date}" data-event="${e.date}" href="#">Hide</a>
-											<a id="edit-${e.date}" data-event="${e.date}" href="#">Edit</a>
-											<a id="delete-${e.date}" data-event="${e.date}" style="color: #ff0000;" href="#">Delete</a>
+    									<a id="hide-${e.date}" data-event="${e.date}" data-function="hide" onclick="openModal('hide', '${e.date}')">${e.visible ? "H" : "Unh"}ide</a>
+											<a id="edit-${e.date}" data-event="${e.date}" data-function="edit" onclick="openModal('edit', '${e.date}')">Edit</a>
+											<a id="delete-${e.date}" data-event="${e.date}" data-function="delete" style="color: #ff0000;" onclick="openModal('delete', '${e.date}')">Delete</a>
   									</div>
 									</div>
                `;
@@ -104,6 +104,38 @@
 			</div>
 
 			<div id="disclaimer">©2026 Summit Groove Collective</div>
+		</div>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close" onclick="closeModal()">&times;</span>
+					<h2 id="modal-title">Event</h2>
+				</div>
+				<div class="modal-body">
+					<p>This function is not available yet.</p>
+					<p>
+						Go to the
+						<a
+							style="color: #1db954"
+							href="https://github.com/ymargreth/sgc-data/blob/main/events.json"
+							target="_blank"
+							>Events file on GitHub</a
+						>
+						to edit the Event data.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<span
+						class="close"
+						style="float: unset; font-size: 0.875rem"
+						onclick="closeModal()"
+						>Close</span
+					>
+				</div>
+			</div>
 		</div>
 
 		<script>
