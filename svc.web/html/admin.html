@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Admin Dashboard · Event Presenter</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/style.css" />
+		<script src="https://unpkg.com/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
+		<script src="/util.js"></script>
+		<script>
+			async function loadDashboard() {
+				try {
+					qrOptions = await fetchJSON("sgc-qr");
+					const events = await fetchJSON("events");
+
+					const container = document.getElementById("events");
+					container.innerHTML = "";
+
+					const now = new Date();
+
+					const upcoming = events
+						.map((e) => ({ ...e, dateObj: new Date(e.date) }))
+						.filter((e) => e.dateObj >= now)
+						.sort((a, b) => a.dateObj - b.dateObj);
+
+					const past = events.filter((e) => !upcoming.includes(e));
+
+					if (upcoming.length === 0) {
+						container.innerHTML = "<div class='event'>No upcoming events</div>";
+						return;
+					}
+					// document.title = "Admin Dashboard - Event Presenter";
+					document.querySelector(".section-title").textContent =
+						"UPCOMING EVENTS";
+
+					upcoming.forEach((e) => {
+						const location = e.location ? ` @ ${e.location}` : "";
+						const page = `/?q=${e.date}`;
+						const qrCode = generateQR(e.date);
+						const el = document.createElement("div");
+						el.className = "event-item";
+
+						el.innerHTML = `
+									<div class="event link" style="width: 80%; text-align: left;" onclick="window.open('${page}', '_blank')">
+                  	<div class="event-title">${e.name}${!e.visible ? " (Hidden)" : ""}</div>
+                  	<div class="event-meta">${e.date} ·${location}</div>
+									</div>
+									<div class="event link button" onclick="donwloadQR('${e.date}')">
+										Download 
+										<br>
+										QR
+									</div>
+									<div class="dropdown">
+										<div id="dropdown-btn-${e.date}" style="width: auto; font-size: 1rem; padding: .875rem .125rem;" class="event link button" onclick="toggleDropdown('${e.date}')">
+											⋮
+										</div>
+										<div id="dropdown-content-${e.date}" class="dropdown-content">
+    									<a id="hide-${e.date}" data-event="${e.date}" data-function="hide" onclick="openModal('hide', '${e.date}')">${e.visible ? "H" : "Unh"}ide</a>
+											<a id="edit-${e.date}" data-event="${e.date}" data-function="edit" onclick="openModal('edit', '${e.date}')">Edit</a>
+											<a id="delete-${e.date}" data-event="${e.date}" data-function="delete" style="color: #ff0000;" onclick="openModal('delete', '${e.date}')">Delete</a>
+  									</div>
+									</div>
+               `;
+
+						container.appendChild(el);
+					});
+				} catch (err) {
+					document.getElementById("events").innerHTML =
+						"<div class='message'>Failed to load events</div>";
+					console.error("Failed to load events:", err);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="header" class="admin">Logout</div>
+
+		<div id="container">
+			<div id="logo-top" class="logo">
+				<img
+					src="/icons/sgc-icon-white.png"
+					alt="Summit Groove Collective Logo Icon"
+				/>
+			</div>
+			<div id="title">Admin Dashboard</div>
+			<div class="accent"></div>
+			<div id="subtitle"></div>
+			<div id="tagline"></div>
+
+			<div class="accent hidden"></div>
+
+			<div class="section-title">UPCOMING EVENTS</div>
+			<div id="links" class="hidden"></div>
+			<div id="events"></div>
+
+			<div class="section-title">USEFUL TOOLS</div>
+			<div id="socials"></div>
+
+			<div id="logo-bottom" class="logo">
+				<img
+					src="/icons/sgc-name-white.png"
+					alt="Summit Groove Collective Logo Text"
+				/>
+			</div>
+
+			<div id="disclaimer">©2026 Summit Groove Collective</div>
+		</div>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close" onclick="closeModal()">&times;</span>
+					<h2 id="modal-title">Event</h2>
+				</div>
+				<div class="modal-body">
+					<p>This function is not available yet.</p>
+					<p>
+						Go to the
+						<a
+							style="color: #1db954"
+							href="https://github.com/ymargreth/sgc-data/blob/main/events.json"
+							target="_blank"
+							>Events file on GitHub</a
+						>
+						to edit the Event data.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<span
+						class="close"
+						style="float: unset; font-size: 0.875rem"
+						onclick="closeModal()"
+						>Close</span
+					>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			document.getElementById("tagline").classList.add("hidden");
+			loadDashboard();
+			// loadAdminTools();
+		</script>
+	</body>
+</html>

@@ -43,11 +43,11 @@ function donwloadQR(query) {
 async function loadQrGenerator() {
 	try {
 		qrOptions = await fetchJSON("sgc-qr");
-		document.title = "QR Code Generator - Event Presenter";
+		document.title = "QR Code Generator · Event Presenter";
 		document.getElementById("title").textContent = "QR Code Generator";
 		document.body.querySelector("main").innerHTML = `
 					<div class="section-title" style="margin-bottom: 2rem;">GENERATE A QR CODE</div>
-					<div style="margin: auto 2rem; display:block">
+					<div id="qrinput"style="margin: auto 2rem; display:block">
 					<input id="qrtext" type="text" placeholder="Enter text or URL" />
 					<button onclick="displayQR()">Generate QR Code</button>
 					</div>
@@ -61,6 +61,8 @@ async function loadQrGenerator() {
 async function loadDashboard() {
 	try {
 		qrOptions = await fetchJSON("sgc-qr");
+		document.title = "Event Overview · Event Presenter";
+		document.getElementById("title").textContent = "Event Overview";
 		const events = await fetchJSON("events");
 
 		const container = document.getElementById("events");
@@ -79,7 +81,7 @@ async function loadDashboard() {
 			container.innerHTML = "<div class='event'>No upcoming events</div>";
 			return;
 		}
-		document.title = "Overview - Event Presenter";
+
 		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
 
 		upcoming.forEach((e) => {
@@ -90,17 +92,11 @@ async function loadDashboard() {
 			el.className = "event-item";
 
 			el.innerHTML = `
-									<div class="event link" style="width: 80%" onclick="window.open('${page}', '_blank')">
+									<div class="event link" style="width: 100%; text-align: left;" onclick="window.open('${page}', '_blank')">
                   	<div class="event-title">${e.name}</div>
                   	<div class="event-meta">${e.date} ·${location}</div>
 									</div>
-									<div class="event link" style="margin-left: 0.5rem; width: 5rem; font-size: 0.8rem; text-align: center;" onclick="donwloadQR('${e.date}')">
-										Download 
-										<br>
-										QR
-									</div>
-               `;
-
+								`;
 			container.appendChild(el);
 		});
 	} catch (err) {
@@ -216,7 +212,7 @@ async function loadEvent(dateStr) {
 		}
 
 		// populate page
-		document.title = `${event.name} - Event Presenter`;
+		document.title = `${event.name} · Event Presenter`;
 
 		document.getElementById("title").textContent = event.name;
 
@@ -261,4 +257,53 @@ async function loadEvent(dateStr) {
 
 		console.error("Failed to load event links:", err);
 	}
+}
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function toggleDropdown(date) {
+	document.getElementById(`dropdown-content-${date}`).classList.toggle("open");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function (event) {
+	var openDropdown = document.querySelector(".dropdown-content.open");
+	console.log(openDropdown, event.target);
+	if (!openDropdown) {
+		console.log("No open dropdown found", event.target, openDropdown?.id);
+		return;
+	}
+	if (event.target.id.endsWith(openDropdown.id.substring(16))) {
+		console.log(
+			"Clicked on open dropdown element",
+			event.target,
+			openDropdown.id
+		);
+		if (event.target.tagName === "A") {
+			console.log("Clicked on dropdown link", event.target);
+			openModal(event.target.dataset.function, event.target.dataset.event);
+		} else {
+			return;
+		}
+	} else {
+		console.log(
+			"Clicked outside of open dropdown",
+			event.target,
+			openDropdown.id
+		);
+	}
+	openDropdown.classList.remove("open");
+};
+
+/* Modal functions */
+
+function closeModal() {
+	document.getElementById("myModal").classList.remove("open");
+}
+
+function openModal(functionName, date) {
+	const modal = document.getElementById("myModal");
+	document.getElementById("modal-title").textContent =
+		`${functionName.charAt(0).toUpperCase() + functionName.slice(1)} Event`;
+	modal.classList.add("open");
 }
