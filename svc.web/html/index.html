@@ -53,15 +53,14 @@
 			const query = params.get("q");
 
 			if (!query) {
-				document.getElementById("container").innerHTML = "Nothing to display";
-				throw new Error("No query param");
-			} else if (query === "displayAll") {
 				// Hide elements that are only for the event view
 				document.getElementById("tagline").classList.add("hidden");
 
 				loadOverview();
 			} else if (query === "qr") {
 				loadQrGenerator();
+			} else if (query === "dashboard") {
+				loadDashboard();
 			} else if (query === "admin") {
 				loadAdminPanel();
 			} else if (query.match(/\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])/)) {
@@ -71,8 +70,8 @@
 					.forEach((el) => el.classList.remove("hidden"));
 
 				// Hide elements that are only for the overview
-				// document.getElementById("header").classList.add("hidden");
-				document.getElementById("events").classList.add("hidden");
+				document.getElementById("header")?.classList.add("hidden");
+				document.getElementById("events")?.classList.add("hidden");
 
 				loadEvent(query);
 			} else {

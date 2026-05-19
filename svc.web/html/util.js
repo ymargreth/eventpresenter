@@ -58,7 +58,7 @@ async function loadQrGenerator() {
 	}
 }
 
-async function loadOverview() {
+async function loadDashboard() {
 	try {
 		qrOptions = await fetchJSON("sgc-qr");
 		const events = await fetchJSON("events");
@@ -70,10 +70,10 @@ async function loadOverview() {
 
 		const upcoming = events
 			.map((e) => ({ ...e, dateObj: new Date(e.date) }))
-			.filter((e) => e.dateObj >= now)
+			.filter((e) => e.dateObj >= now && e.visible)
 			.sort((a, b) => a.dateObj - b.dateObj);
 
-		const past = events.filter((e) => !upcoming.includes(e));
+		const past = events.filter((e) => !upcoming.includes(e) && e.visible);
 
 		if (upcoming.length === 0) {
 			container.innerHTML = "<div class='event'>No upcoming events</div>";
@@ -101,6 +101,52 @@ async function loadOverview() {
 									</div>
                `;
 
+			container.appendChild(el);
+		});
+	} catch (err) {
+		document.getElementById("events").innerHTML =
+			"<div class='message'>Failed to load events</div>";
+		console.error("Failed to load events:", err);
+	}
+}
+
+async function loadOverview() {
+	try {
+		qrOptions = await fetchJSON("sgc-qr");
+		const events = await fetchJSON("events");
+
+		const container = document.getElementById("events");
+		container.innerHTML = "";
+
+		const now = new Date();
+
+		const upcoming = events
+			.map((e) => ({ ...e, dateObj: new Date(e.date) }))
+			.filter((e) => e.dateObj >= now && e.visible)
+			.sort((a, b) => a.dateObj - b.dateObj);
+
+		const past = events.filter((e) => !upcoming.includes(e) && e.visible);
+
+		if (upcoming.length === 0) {
+			container.innerHTML = "<div class='event'>No upcoming events</div>";
+			return;
+		}
+
+		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
+
+		upcoming.forEach((e) => {
+			const location = e.location ? ` @ ${e.location}` : "";
+			const page = `/?q=${e.date}`;
+			const qrCode = generateQR(e.date);
+			const el = document.createElement("div");
+			el.className = "event-item";
+
+			el.innerHTML = `
+									<div class="event link" style="width: 100%" onclick="window.open('${page}', '_blank')">
+                  	<div class="event-title">${e.name}</div>
+                  	<div class="event-meta">${e.date} ·${location}</div>
+									</div>
+								`;
 			container.appendChild(el);
 		});
 	} catch (err) {
@@ -148,6 +194,12 @@ async function loadEvent(dateStr) {
 
 		if (!event) {
 			console.error(`No Event found for date: ${eventDate.toDateString()}`);
+			return;
+		}
+
+		if (!event.visible) {
+			document.getElementById("links").innerHTML =
+				`<div class='message'>Event on ${eventDate.toDateString()} is not visible</div>`;
 			return;
 		}
 
