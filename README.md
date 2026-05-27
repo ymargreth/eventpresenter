@@ -71,6 +71,13 @@ if you cloned the repo like described above, just use the followin commands:
 git pull
 make rebuild
 ```
+or
+```
+git pull
+docker-compose down
+docker-compose up -d --build
+```
+
 
 ## MAKE commands
 
