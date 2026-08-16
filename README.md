@@ -149,8 +149,6 @@ make logs SERVICE=xxx
 ```
 
 > docker-compose logs -f xxx
->
-> docker-compose up -d --build
 
 ---
 
