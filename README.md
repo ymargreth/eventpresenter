@@ -10,6 +10,7 @@
 
    ```sh
    curl -fsSL https://get.docker.com -o get-docker.sh
+
    sh get-docker.sh
    ```
 
@@ -71,6 +72,7 @@ if you cloned the repo like described above, just use the followin commands:
 
 ```
 git pull
+
 make rebuild
 ```
 
@@ -78,7 +80,9 @@ or
 
 ```
 git pull
+
 docker-compose down
+
 docker-compose up -d --build
 ```
 
@@ -92,6 +96,8 @@ _SERVICE=xxx_ is **always** optional! (_xxx_ should be replaced by your **servic
 
 ```sh
 make up SERVICE=xxx
+or
+make start SERVICE=xxx
 ```
 
 > docker-compose up xxx
@@ -108,6 +114,7 @@ make down SERVICE=xxx
 
 ```sh
 make pause SERVICE=xxx
+or
 make stop SERVICE=xxx
 ```
 
@@ -116,7 +123,8 @@ make stop SERVICE=xxx
 ---
 
 ```sh
-make start SERVICE=xxx
+make silentstart SERVICE=xxx
+or
 make run SERVICE=xxx
 ```
 
@@ -154,6 +162,7 @@ make logs SERVICE=xxx
 
 ```sh
 make status
+or
 make ps
 ```
 
@@ -162,8 +171,7 @@ make ps
 ---
 
 ```sh
-make status
-make ps
+make clean
 ```
 
 > docker-compose down -v --remove-orphans

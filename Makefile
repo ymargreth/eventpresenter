@@ -26,19 +26,20 @@ SERVICE       ?=           # optional: SERVICE=web
 # common flags
 COMPOSE_CMD = $(COMPOSE) -f $(FILE) -p $(PROJECT)
 
-all: start
+all: silentstart
 
 # =========================
 # COMMANDS
 # =========================
 
-.PHONY: up down pause stop
+.PHONY: up down start pause stop
+start: up
 pause: stop
 up down stop: check-docker
 	@$(COMPOSE_CMD) $@ $(SERVICE)
 
-.PHONY: start run
-start: run
+.PHONY: silentstart run
+silentstart: run
 run: check-docker
 	@$(COMPOSE_CMD) up -d $(SERVICE)
 
