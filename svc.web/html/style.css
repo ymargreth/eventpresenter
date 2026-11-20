@@ -28,7 +28,7 @@ a {
 
 footer {
 	position: relative;
-	width: 30rem;
+	/* width: 30rem; */
 	bottom: 0.5rem;
 	margin-top: 2rem;
 }
