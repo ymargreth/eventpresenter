@@ -66,25 +66,36 @@ async function loadDashboard() {
 		const events = await fetchJSON("events");
 
 		const container = document.getElementById("events");
-		container.innerHTML = "";
+		container.innerHTML = `
+			</br>
+			<div id="eventsUpcoming">
+			</div>
+			<div class="section-title">PAST EVENTS</div>
+			</br>
+			<div id="eventsPast">
+			</div>
+		`;
 
 		const now = new Date();
 
-		const upcoming = events
+		const eventsVisible = events.filter((e) => e.visible);
+
+		const eventsUpcoming = eventsVisible
 			.map((e) => ({ ...e, dateObj: new Date(e.date) }))
-			.filter((e) => e.dateObj >= now && e.visible)
+			.filter((e) => e.dateObj >= now)
 			.sort((a, b) => a.dateObj - b.dateObj);
 
-		const past = events.filter((e) => !upcoming.includes(e) && e.visible);
+		// const eventsPast = eventsVisible.filter((e) => !eventsUpcoming.includes(e) && e.visible);
 
-		if (upcoming.length === 0) {
-			container.innerHTML = "<div class='event'>No upcoming events</div>";
+		if (eventsUpcoming.length === 0) {
+			document.getElementById("eventsUpcoming").innerHTML =
+				"<div class='event'>No upcoming events</div>";
 			return;
 		}
 
 		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
 
-		upcoming.forEach((e) => {
+		events.forEach((e) => {
 			const location = e.location ? ` @ ${e.location}` : "";
 			const page = `/?q=${e.date}`;
 			const qrCode = generateQR(e.date);
@@ -97,7 +108,11 @@ async function loadDashboard() {
                   	<div class="event-meta">${e.date} ·${location}</div>
 									</div>
 								`;
-			container.appendChild(el);
+			const parent =
+				eventsUpcoming.includes(e) ?
+					document.getElementById("eventsUpcoming")
+				:	document.getElementById("eventsPast");
+			parent.appendChild(el);
 		});
 	} catch (err) {
 		document.getElementById("events").innerHTML =
@@ -108,7 +123,7 @@ async function loadDashboard() {
 
 async function loadOverview() {
 	try {
-		qrOptions = await fetchJSON("sgc-qr");
+		// qrOptions = await fetchJSON("sgc-qr");
 		const events = await fetchJSON("events");
 
 		const container = document.getElementById("events");

@@ -4,6 +4,7 @@ set -e
 
 BASE_URL="https://raw.githubusercontent.com/ymargreth/sgc-data/main"
 TARGET_DIR="/data"
+TIMEOUT=300
 
 echo "$(date +"%D %T") Fetcher started..."
 
@@ -23,5 +24,5 @@ while true; do
       || echo "$(date +"%D %T") sgc-qr.json failed"
 
    echo "$(date +"%D %T") Sleeping..."
-   sleep 300
+   sleep $TIMEOUT
 done

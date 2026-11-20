@@ -70,7 +70,7 @@
 
 if you cloned the repo like described above, just use the followin commands:
 
-```
+```sh
 git pull
 
 make rebuild
@@ -78,7 +78,7 @@ make rebuild
 
 or
 
-```
+```sh
 git pull
 
 docker-compose down

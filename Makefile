@@ -20,7 +20,7 @@ endif
 DOCKER        ?= docker
 COMPOSE       ?= $(COMPOSE_BIN)
 PROJECT       ?= eventpresenter
-FILE          ?= docker-compose.yml
+FILE          ?= compose.yml
 SERVICE       ?=           # optional: SERVICE=web
 
 # common flags
