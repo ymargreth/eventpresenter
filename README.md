@@ -1,10 +1,32 @@
-# eventpresenter by *ymargreth*
+# `eventpresenter` by _ymargreth_
 
 > Self-hosted alternative to _LinkTree_
+
+-> [github.com](https://github.com/ymargreth/eventpresenter/)
 
 ## Prerequisites
 
 1. install `docker` and `docker-compose`
+
+   ```sh
+   curl -fsSL https://get.docker.com -o get-docker.sh
+
+   sh get-docker.sh
+   ```
+
+   > The purpose of the install script is for a convenience for quickly installing the latest Docker-CE releases on the supported linux distros. It is not recommended to depend on this script for deployment to production systems. For more thorough instructions for installing on the supported distros, see the [install instructions](https://docs.docker.com/engine/install/).
+
+1. install `git`
+
+   ```sh
+   sudo apt install git
+   ```
+
+1. install `make` (optional)
+
+   ```sh
+   sudo apt install make
+   ```
 
 ## Container Setup
 
@@ -20,7 +42,7 @@
    docker-compose up -d
    ```
 
-   or
+   or (optionally)
 
    ```sh
    make
@@ -29,5 +51,127 @@
 1. use the following url:
 
    ```md
-   (http://localhost:42080/?q=displayAll)
+   (http://localhost:42080/)
    ```
+
+   the following url opens the admin panel:
+
+   ```md
+   (http://localhost:42080/?q=admin)
+   ```
+
+   the following url opens the QR generator:
+
+   ```md
+   (http://localhost:42080/?q=qr)
+   ```
+
+## How to update to the latest release
+
+if you cloned the repo like described above, just use the followin commands:
+
+```
+git pull
+
+make rebuild
+```
+
+or
+
+```
+git pull
+
+docker-compose down
+
+docker-compose up -d --build
+```
+
+## MAKE commands
+
+**all of the following commands check for the docker engine to run first!**
+
+_SERVICE=xxx_ is **always** optional! (_xxx_ should be replaced by your **service name**!)
+
+---
+
+```sh
+make up SERVICE=xxx
+or
+make start SERVICE=xxx
+```
+
+> docker-compose up xxx
+
+---
+
+```sh
+make down SERVICE=xxx
+```
+
+> docker-compose down xxx
+
+---
+
+```sh
+make pause SERVICE=xxx
+or
+make stop SERVICE=xxx
+```
+
+> docker-compose stop xxx
+
+---
+
+```sh
+make silentstart SERVICE=xxx
+or
+make run SERVICE=xxx
+```
+
+> docker-compose up -d xxx
+
+---
+
+```sh
+make reset
+```
+
+> docker-compose down
+>
+> docker-compose run
+
+---
+
+```sh
+make rebuild SERVICE=xxx
+```
+
+> docker-compose down
+>
+> docker-compose up -d --build xxx
+
+---
+
+```sh
+make logs SERVICE=xxx
+```
+
+> docker-compose logs -f xxx
+
+---
+
+```sh
+make status
+or
+make ps
+```
+
+> docker-compose ps
+
+---
+
+```sh
+make clean
+```
+
+> docker-compose down -v --remove-orphans
