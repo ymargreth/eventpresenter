@@ -66,15 +66,12 @@ async function loadDashboard() {
 		const events = await fetchJSON("events");
 
 		const container = document.getElementById("events");
-		container.innerHTML = `
-</br>
-<div id="eventsUpcoming">
-</div>
-<div class="section-title">PAST EVENTS</div>
-</br>
-<div id="eventsPast">
-</div>
-`;
+		container.innerHTML =
+			'</br> \
+			<div id="eventsUpcoming"></div> \
+			<div class="section-title">PAST EVENTS</div> \
+			</br> \
+			<div id="eventsPast"></div>';
 
 		const now = new Date();
 
@@ -125,6 +122,7 @@ async function loadOverview() {
 	try {
 		// qrOptions = await fetchJSON("sgc-qr");
 		const events = await fetchJSON("events");
+		console.log("Loaded events:", events);
 
 		const container = document.getElementById("events");
 		container.innerHTML = "";
