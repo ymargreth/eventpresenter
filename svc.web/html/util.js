@@ -60,10 +60,11 @@ async function loadQrGenerator() {
 
 async function loadDashboard() {
 	try {
-		qrOptions = await fetchJSON("sgc-qr");
+		//qrOptions = await fetchJSON("sgc-qr");
 		document.title = "Event Overview · Event Presenter";
 		document.getElementById("title").textContent = "Event Overview";
 		const events = await fetchJSON("events");
+		console.log("Loaded events:", events);
 
 		const container = document.getElementById("events");
 		container.innerHTML =
@@ -73,14 +74,19 @@ async function loadDashboard() {
 			</br> \
 			<div id="eventsPast"></div>';
 
+		console.log("events html:", container.innerHTML);
+
 		const now = new Date();
 
 		const eventsVisible = events.filter((e) => e.visible);
+		console.log("Visible events:", eventsVisible);
 
 		const eventsUpcoming = eventsVisible
 			.map((e) => ({ ...e, dateObj: new Date(e.date) }))
 			.filter((e) => e.dateObj >= now)
 			.sort((a, b) => a.dateObj - b.dateObj);
+
+		console.log("Upcoming events:", eventsUpcoming);
 
 		// const eventsPast = eventsVisible.filter((e) => !eventsUpcoming.includes(e) && e.visible);
 
