@@ -67,14 +67,14 @@ async function loadDashboard() {
 
 		const container = document.getElementById("events");
 		container.innerHTML = `
-			</br>
-			<div id="eventsUpcoming">
-			</div>
-			<div class="section-title">PAST EVENTS</div>
-			</br>
-			<div id="eventsPast">
-			</div>
-		`;
+</br>
+<div id="eventsUpcoming">
+</div>
+<div class="section-title">PAST EVENTS</div>
+</br>
+<div id="eventsPast">
+</div>
+`;
 
 		const now = new Date();
 
