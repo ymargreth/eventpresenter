@@ -92,7 +92,7 @@ async function loadDashboard() {
 
 		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
 
-		events.forEach((e) => {
+		eventsVisible.forEach((e) => {
 			const location = e.location ? ` @ ${e.location}` : "";
 			const page = `/?q=${e.date}`;
 			// const qrCode = generateQR(e.date);
