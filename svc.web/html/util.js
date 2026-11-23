@@ -95,7 +95,7 @@ async function loadDashboard() {
 		events.forEach((e) => {
 			const location = e.location ? ` @ ${e.location}` : "";
 			const page = `/?q=${e.date}`;
-			const qrCode = generateQR(e.date);
+			// const qrCode = generateQR(e.date);
 			const el = document.createElement("div");
 			el.className = "event-item";
 
@@ -142,7 +142,7 @@ async function loadOverview() {
 		upcoming.forEach((e) => {
 			const location = e.location ? ` @ ${e.location}` : "";
 			const page = `/?q=${e.date}`;
-			const qrCode = generateQR(e.date);
+			// const qrCode = generateQR(e.date);
 			const el = document.createElement("div");
 			el.className = "event-item";
 
