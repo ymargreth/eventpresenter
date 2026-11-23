@@ -67,11 +67,11 @@ async function loadDashboard() {
 		console.log("Loaded events:", events);
 
 		const container = document.getElementById("events");
-		const upcomingContainer = document.getElementById("eventsUpcoming");
-		const pastContainer = document.getElementById("eventsPast");
+		const containerUpcoming = document.getElementById("eventsUpcoming");
+		const containerPast = document.getElementById("eventsPast");
 
-		upcomingContainer.innerHTML = "";
-		pastContainer.innerHTML = "";
+		containerUpcoming.innerHTML = "";
+		containerPast.innerHTML = "";
 
 		const now = new Date();
 
@@ -82,20 +82,22 @@ async function loadDashboard() {
 
 		console.log("Visible events:", eventsVisible);
 
+		const eventsUpcoming = eventsVisible.filter((e) => e.dateObj >= now);
+
 		// const eventsPast = eventsVisible.filter((e) => !eventsUpcoming.includes(e) && e.visible);
 
-		// if (eventsVisible.length === 0) {
-		// 	document.getElementById("eventsUpcoming").innerHTML =
-		// 		"<div class='event'>No upcoming events</div>";
-		// 	return;
-		// }
+		if (eventsUpcoming.length === 0) {
+			document.getElementById("eventsUpcoming").innerHTML =
+				"<div class='event'>No upcoming events</div>";
+			return;
+		}
 
 		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
 
 		eventsVisible.forEach((e) => {
 			const location = e.location ? ` @ ${e.location}` : "";
 			const page = `/?q=${e.date}`;
-			// const qrCode = generateQR(e.date);
+			const qrCode = generateQR(e.date);
 			const el = document.createElement("div");
 			el.className = "event-item";
 
@@ -105,7 +107,7 @@ async function loadDashboard() {
                   	<div class="event-meta">${e.date} ·${location}</div>
 									</div>
 								`;
-			(e.dateObj >= now ? upcomingContainer : pastContainer).appendChild(el);
+			(e.dateObj >= now ? containerUpcoming : containerPast).appendChild(el);
 		});
 	} catch (err) {
 		document.getElementById("events").innerHTML =
@@ -116,7 +118,7 @@ async function loadDashboard() {
 
 async function loadOverview() {
 	try {
-		// qrOptions = await fetchJSON("sgc-qr");
+		qrOptions = await fetchJSON("sgc-qr");
 		const events = await fetchJSON("events");
 		console.log("Loaded events:", events);
 
@@ -142,7 +144,7 @@ async function loadOverview() {
 		upcoming.forEach((e) => {
 			const location = e.location ? ` @ ${e.location}` : "";
 			const page = `/?q=${e.date}`;
-			// const qrCode = generateQR(e.date);
+			const qrCode = generateQR(e.date);
 			const el = document.createElement("div");
 			el.className = "event-item";
 
