@@ -67,34 +67,28 @@ async function loadDashboard() {
 		console.log("Loaded events:", events);
 
 		const container = document.getElementById("events");
-		container.innerHTML =
-			'</br> \
-			<div id="eventsUpcoming"></div> \
-			<div class="section-title">PAST EVENTS</div> \
-			</br> \
-			<div id="eventsPast"></div>';
+		const upcomingContainer = document.getElementById("eventsUpcoming");
+		const pastContainer = document.getElementById("eventsPast");
 
-		console.log("events html:", container.innerHTML);
+		upcomingContainer.innerHTML = "";
+		pastContainer.innerHTML = "";
 
 		const now = new Date();
 
-		const eventsVisible = events.filter((e) => e.visible);
-		console.log("Visible events:", eventsVisible);
-
-		const eventsUpcoming = eventsVisible
+		const eventsVisible = events
 			.map((e) => ({ ...e, dateObj: new Date(e.date) }))
-			.filter((e) => e.dateObj >= now)
+			.filter((e) => e.visible)
 			.sort((a, b) => a.dateObj - b.dateObj);
 
-		console.log("Upcoming events:", eventsUpcoming);
+		console.log("Visible events:", eventsVisible);
 
 		// const eventsPast = eventsVisible.filter((e) => !eventsUpcoming.includes(e) && e.visible);
 
-		if (eventsUpcoming.length === 0) {
-			document.getElementById("eventsUpcoming").innerHTML =
-				"<div class='event'>No upcoming events</div>";
-			return;
-		}
+		// if (eventsVisible.length === 0) {
+		// 	document.getElementById("eventsUpcoming").innerHTML =
+		// 		"<div class='event'>No upcoming events</div>";
+		// 	return;
+		// }
 
 		document.querySelector(".section-title").textContent = "UPCOMING EVENTS";
 
@@ -111,11 +105,7 @@ async function loadDashboard() {
                   	<div class="event-meta">${e.date} ·${location}</div>
 									</div>
 								`;
-			const parent =
-				eventsUpcoming.includes(e) ?
-					document.getElementById("eventsUpcoming")
-				:	document.getElementById("eventsPast");
-			parent.appendChild(el);
+			(e.dateObj >= now ? upcomingContainer : pastContainer).appendChild(el);
 		});
 	} catch (err) {
 		document.getElementById("events").innerHTML =
