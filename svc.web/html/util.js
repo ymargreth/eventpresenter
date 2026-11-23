@@ -60,7 +60,7 @@ async function loadQrGenerator() {
 
 async function loadDashboard() {
 	try {
-		//qrOptions = await fetchJSON("sgc-qr");
+		qrOptions = await fetchJSON("sgc-qr");
 		document.title = "Event Overview · Event Presenter";
 		document.getElementById("title").textContent = "Event Overview";
 		const events = await fetchJSON("events");
