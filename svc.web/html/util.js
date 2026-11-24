@@ -88,7 +88,7 @@ async function loadDashboard() {
 
 		if (eventsUpcoming.length === 0) {
 			document.getElementById("eventsUpcoming").innerHTML =
-				"<div class='event'>No upcoming events</div>";
+				"<div class='event'></br>No upcoming events</br></div>";
 			// return;
 		}
 
