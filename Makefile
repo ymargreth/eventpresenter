@@ -71,6 +71,13 @@ check-docker:
 		while ! $(DOCKER) info > /dev/null 2>&1; do sleep 2; done; \
 	fi
 
+.PHONY: update
+update: 
+	@git pull
+
+.PHONY: upgrade
+upgrade: update rebuild
+
 # =========================
 # HELP
 # =========================
@@ -95,3 +102,5 @@ help:
 	@echo "Optional Variables:"
 	@echo "  SERVICE=<name>   (target specific service)"
 	@echo ""
+	@echo "=============================="
+	@echo "====> Check out the README.md for more information!"

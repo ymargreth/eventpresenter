@@ -175,3 +175,23 @@ make clean
 ```
 
 > docker-compose down -v --remove-orphans
+
+---
+
+```sh
+make update
+```
+
+> git pull
+
+---
+
+```sh
+make upgrade
+```
+
+> git pull
+>
+> docker-compose down
+>
+> docker-compose up -d --build xxx
