@@ -102,7 +102,7 @@ async function loadDashboard() {
 			el.className = "event-item";
 
 			el.innerHTML = `
-									<div class="event link" style="width: 100%; text-align: left;" onclick="window.open('${page}', '_blank')">
+									<div class="event link" style="width: 100%;" onclick="window.open('${page}', '_blank')">
                   	<div class="event-title">${e.name}</div>
                   	<div class="event-meta">${e.date} ·${location}</div>
 									</div>
