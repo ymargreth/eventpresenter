@@ -88,7 +88,7 @@ async function loadDashboard() {
 
 		if (eventsUpcoming.length === 0) {
 			document.getElementById("eventsUpcoming").innerHTML =
-				"<div class='event'></br>No upcoming events</br></div>";
+				"<div class='event'></br><i>No upcoming events...</i></br></div>";
 			// return;
 		}
 
@@ -204,7 +204,7 @@ async function loadFlyer(shareLink) {
 	`;
 }
 
-async function loadEvent(dateStr) {
+async function loadEvent(dateStr, past = false) {
 	try {
 		const event = await fetchJSON("events").then((events) =>
 			events.find((e) => e.date === dateStr)
@@ -238,29 +238,40 @@ async function loadEvent(dateStr) {
 		document.getElementById("tagline").textContent =
 			`${event.location ? `${event.location} · ` : ""}${event.city}`;
 
-		document.getElementById("ticket-link").href = event.links.ticket || "#";
+		const ticketLink = document.getElementById("ticket-link");
+		if (past) {
+			document.querySelector(".section-title").classList.add("hidden");
+			if (event.links.gallery) {
+				ticketLink.href = event.links.gallery || "#";
+				ticketLink.textContent = "Open Photo Gallery";
+			} else {
+				ticketLink.classList.add("hidden");
+			}
+		} else {
+			ticketLink.href = event.links.ticket || "#";
+			ticketLink.textContent = "Get Your Ticket Now!";
 
-		document.querySelector(".section-title").textContent = "MORE INFOS";
+			document.querySelector(".section-title").textContent = "MORE INFOS";
 
-		const container = document.getElementById("links");
-		container.innerHTML = "";
+			const container = document.getElementById("links");
+			container.innerHTML = "";
 
-		for (const [key, link] of Object.entries(event.links)) {
-			if (key !== "ticket" && key !== "flyer") {
-				const el = document.createElement("a");
-				el.className = "block link";
-				el.href = link;
-				el.target = "_blank";
+			for (const [key, link] of Object.entries(event.links)) {
+				if (key !== "ticket" && key !== "flyer") {
+					const el = document.createElement("a");
+					el.className = "block link";
+					el.href = link;
+					el.target = "_blank";
 
-				el.innerHTML =
-					key === "map" ?
-						"Open Location in Maps"
-					:	key.charAt(0).toUpperCase() + key.slice(1);
+					el.innerHTML =
+						key === "map" ?
+							"Open Location in Maps"
+						:	key.charAt(0).toUpperCase() + key.slice(1);
 
-				container.appendChild(el);
+					container.appendChild(el);
+				}
 			}
 		}
-
 		loadFlyer(event.links.flyer || false);
 	} catch (err) {
 		document.getElementById("links").innerHTML =
