@@ -204,12 +204,13 @@ async function loadFlyer(shareLink) {
 	`;
 }
 
-async function loadEvent(dateStr, past = false) {
+async function loadEvent(dateStr) {
 	try {
 		const event = await fetchJSON("events").then((events) =>
 			events.find((e) => e.date === dateStr)
 		);
 		const eventDate = new Date(dateStr);
+		const past = eventDate < new Date();
 
 		if (!event) {
 			console.error(`No Event found for date: ${eventDate.toDateString()}`);
