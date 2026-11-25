@@ -247,7 +247,7 @@ async function loadEvent(dateStr) {
 			document.querySelector(".section-title").classList.add("hidden");
 			if (event.links.gallery) {
 				ticketLink.href = event.links.gallery || "#";
-				ticketLink.textContent = "Open Photo Gallery";
+				ticketLink.textContent = "Photo Gallery";
 			} else {
 				ticketLink.classList.add("hidden");
 			}
