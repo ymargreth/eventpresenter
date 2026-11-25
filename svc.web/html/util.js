@@ -61,10 +61,13 @@ async function loadQrGenerator() {
 async function loadDashboard() {
 	try {
 		qrOptions = await fetchJSON("sgc-qr");
-		document.title = "Event Overview · Event Presenter";
+		document.title = "Overview · Event Presenter";
 		document.getElementById("title").textContent = "Event Overview";
 		const events = await fetchJSON("events");
 		console.log("Loaded events:", events);
+
+		// hide the header
+		document.getElementById("header")?.classList.add("hidden");
 
 		const container = document.getElementById("events");
 		const containerUpcoming = document.getElementById("eventsUpcoming");
