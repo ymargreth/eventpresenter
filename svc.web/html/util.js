@@ -83,7 +83,7 @@ async function loadDashboard() {
 			.filter((e) => e.visible)
 			.sort((a, b) => a.dateObj - b.dateObj);
 
-		console.log("Visible events:", eventsVisible);
+		console.debug("Visible events:", eventsVisible);
 
 		const eventsUpcoming = eventsVisible.filter((e) => e.dateObj >= now);
 
@@ -201,6 +201,7 @@ async function loadSocials() {
 
 async function loadFlyer(shareLink) {
 	if (!shareLink) {
+		console.debug("No flyer link provided, hiding flyer section");
 		document.getElementById("flyer").classList.add("hidden");
 		return;
 	}
@@ -298,25 +299,25 @@ function toggleDropdown(date) {
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
 	var openDropdown = document.querySelector(".dropdown-content.open");
-	console.log(openDropdown, event.target);
+	console.debug(openDropdown, event.target);
 	if (!openDropdown) {
-		console.log("No open dropdown found", event.target, openDropdown?.id);
+		console.debug("No open dropdown found", event.target, openDropdown?.id);
 		return;
 	}
 	if (event.target.id.endsWith(openDropdown.id.substring(16))) {
-		console.log(
+		console.debug(
 			"Clicked on open dropdown element",
 			event.target,
 			openDropdown.id
 		);
 		if (event.target.tagName === "A") {
-			console.log("Clicked on dropdown link", event.target);
+			console.debug("Clicked on dropdown link", event.target);
 			openModal(event.target.dataset.function, event.target.dataset.event);
 		} else {
 			return;
 		}
 	} else {
-		console.log(
+		console.debug(
 			"Clicked outside of open dropdown",
 			event.target,
 			openDropdown.id
