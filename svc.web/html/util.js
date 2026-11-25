@@ -252,6 +252,8 @@ async function loadEvent(dateStr) {
 			ticketLink.href = event.links.ticket || "#";
 			ticketLink.textContent = "Get Your Ticket Now!";
 
+			document.querySelector(".hidden.accent").classList.remove("hidden");
+
 			document.querySelector(".section-title").textContent = "MORE INFOS";
 
 			const container = document.getElementById("links");
