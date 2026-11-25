@@ -110,7 +110,11 @@ async function loadDashboard() {
                   	<div class="event-meta">${e.date} ·${location}</div>
 									</div>
 								`;
-			(e.dateObj >= now ? containerUpcoming : containerPast).appendChild(el);
+			if (e.dateObj >= now) {
+				containerUpcoming.appendChild(el);
+			} else {
+				containerPast.insertBefore(el, containerPast.firstChild);
+			}
 		});
 	} catch (err) {
 		document.getElementById("events").innerHTML =
