@@ -73,7 +73,7 @@
 				// Show hidden elements
 				document
 					.querySelectorAll(".hidden")
-					.filter((el) => !el.classList.contains("accent"))
+					.filter((el) => el.classList.contains("accent"))
 					.forEach((el) => el.classList.remove("hidden"));
 
 				// Hide elements that are only for the overview
